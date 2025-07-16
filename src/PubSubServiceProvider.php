@@ -28,8 +28,22 @@ class PubSubServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/pubsub.php', 'pubsub');
+
+        $this->registerPubSubManager();
         $this->registerPubSubConnector();
         $this->registerFailedJobProvider();
+    }
+
+    /**
+     * Register the Pub/Sub manager.
+     */
+    protected function registerPubSubManager(): void
+    {
+        $this->app->singleton('pubsub', function ($app) {
+            return new PubSubManager($app);
+        });
+
+        $this->app->alias('pubsub', PubSubManager::class);
     }
 
     /**
@@ -39,7 +53,7 @@ class PubSubServiceProvider extends ServiceProvider
     {
         $this->app->resolving('queue', function (QueueManager $manager) {
             $manager->extend('pubsub', function () {
-                return new PubSubConnector;
+                return new PubSubConnector();
             });
         });
     }
@@ -64,6 +78,7 @@ class PubSubServiceProvider extends ServiceProvider
     public function provides(): array
     {
         return [
+            'pubsub',
             'queue.failed.pubsub',
         ];
     }
