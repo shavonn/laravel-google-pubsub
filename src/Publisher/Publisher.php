@@ -7,10 +7,11 @@ namespace Shavonn\GooglePubSub\Publisher;
 use Exception;
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Topic;
-use Illuminate\Support\Facades\Log;
 use Shavonn\GooglePubSub\Contracts\MessageFormatter;
 use Shavonn\GooglePubSub\Exceptions\PublishException;
 use Shavonn\GooglePubSub\Formatters\JsonFormatter;
+use Shavonn\GooglePubSub\Schema\SchemaValidator;
+use Illuminate\Support\Facades\Log;
 
 class Publisher
 {
@@ -30,6 +31,11 @@ class Publisher
     protected MessageFormatter $formatter;
 
     /**
+     * The schema validator.
+     */
+    protected ?SchemaValidator $validator = null;
+
+    /**
      * Cached topic instances.
      */
     protected array $topics = [];
@@ -47,9 +53,11 @@ class Publisher
     /**
      * Publish a message to a topic.
      *
-     * @param  mixed  $data
+     * @param string $topicName
+     * @param mixed $data
+     * @param array $attributes
+     * @param array $options
      * @return string Message ID
-     *
      * @throws PublishException
      */
     public function publish(string $topicName, $data, array $attributes = [], array $options = []): string
@@ -65,7 +73,7 @@ class Publisher
 
             $messageId = $result['messageIds'][0] ?? null;
 
-            if (! $messageId) {
+            if (!$messageId) {
                 throw new PublishException('Failed to get message ID from publish result');
             }
 
@@ -91,9 +99,10 @@ class Publisher
     /**
      * Publish multiple messages to a topic.
      *
-     * @param  array  $messages  Array of ['data' => mixed, 'attributes' => array]
+     * @param string $topicName
+     * @param array $messages Array of ['data' => mixed, 'attributes' => array]
+     * @param array $options
      * @return array Message IDs
-     *
      * @throws PublishException
      */
     public function publishBatch(string $topicName, array $messages, array $options = []): array
@@ -129,7 +138,6 @@ class Publisher
     public function setFormatter(MessageFormatter $formatter): self
     {
         $this->formatter = $formatter;
-
         return $this;
     }
 
@@ -138,12 +146,12 @@ class Publisher
      */
     protected function getTopic(string $topicName): Topic
     {
-        if (! isset($this->topics[$topicName])) {
+        if (!isset($this->topics[$topicName])) {
             $topic = $this->client->topic($topicName);
 
             // Auto-create topic if configured
             if ($this->config['auto_create_topics'] ?? true) {
-                if (! $topic->exists()) {
+                if (!$topic->exists()) {
                     $topicConfig = $this->getTopicConfig($topicName);
                     $topic->create($topicConfig);
 
@@ -209,8 +217,11 @@ class Publisher
      */
     protected function validateMessage($data, string $schemaName): void
     {
-        // This will be implemented when we add schema support
-        // For now, just return
+        if (!$this->validator) {
+            $this->validator = new SchemaValidator($this->config);
+        }
+
+        $this->validator->validate($data, $schemaName);
     }
 
     /**
@@ -222,7 +233,7 @@ class Publisher
             return (bool) $options['compress'];
         }
 
-        if (! ($this->config['message_options']['compress_payload'] ?? true)) {
+        if (!($this->config['message_options']['compress_payload'] ?? true)) {
             return false;
         }
 
