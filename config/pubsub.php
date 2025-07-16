@@ -3,10 +3,11 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Google Pub/Sub Configuration
+    | Google Cloud Pub/Sub Configuration
     |--------------------------------------------------------------------------
     |
-    | Configure your Google Pub/Sub settings for queue operations.
+    | Configure your Google Cloud Pub/Sub settings for queue operations
+    | and pub/sub messaging.
     |
     */
 
@@ -17,7 +18,7 @@ return [
     | Authentication
     |--------------------------------------------------------------------------
     |
-    | Configure authentication method for Google Pub/Sub.
+    | Configure authentication method for Google Cloud Pub/Sub.
     | Supported: "application_default", "key_file"
     |
     */
@@ -28,11 +29,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Queue Configuration
+    | Emulator Support
+    |--------------------------------------------------------------------------
+    |
+    | Set the emulator host for local development.
+    |
+    */
+
+    'emulator_host' => env('PUBSUB_EMULATOR_HOST'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Settings
     |--------------------------------------------------------------------------
     */
 
     'default_queue' => env('PUBSUB_DEFAULT_QUEUE', 'default'),
+
+    'use_streaming' => env('PUBSUB_USE_STREAMING', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,38 +58,28 @@ return [
     |
     */
 
-    'queue_options' => [
-        // Automatically create topics and subscriptions if they don't exist
-        'auto_create_topics' => env('PUBSUB_AUTO_CREATE_TOPICS', true),
-        'auto_create_subscriptions' => env('PUBSUB_AUTO_CREATE_SUBSCRIPTIONS', true),
+    'auto_create_topics' => env('PUBSUB_AUTO_CREATE_TOPICS', true),
+    'auto_create_subscriptions' => env('PUBSUB_AUTO_CREATE_SUBSCRIPTIONS', true),
+    'auto_acknowledge' => env('PUBSUB_AUTO_ACKNOWLEDGE', true),
+    'nack_on_error' => env('PUBSUB_NACK_ON_ERROR', true),
 
-        // Subscription suffix for Laravel consumers
-        'subscription_suffix' => env('PUBSUB_SUBSCRIPTION_SUFFIX', '-laravel'),
+    // Subscription settings
+    'subscription_suffix' => env('PUBSUB_SUBSCRIPTION_SUFFIX', '-laravel'),
+    'ack_deadline' => env('PUBSUB_ACK_DEADLINE', 60),
+    'max_messages' => env('PUBSUB_MAX_MESSAGES', 10),
+    'wait_time' => env('PUBSUB_WAIT_TIME', 3),
 
-        // Message acknowledgment deadline (seconds)
-        'ack_deadline' => env('PUBSUB_ACK_DEADLINE', 60),
+    // Retry policy
+    'retry_policy' => [
+        'minimum_backoff' => env('PUBSUB_MIN_BACKOFF', 10),
+        'maximum_backoff' => env('PUBSUB_MAX_BACKOFF', 600),
+    ],
 
-        // Maximum messages to pull per request
-        'max_messages' => env('PUBSUB_MAX_MESSAGES', 10),
-
-        // Wait time for messages (seconds)
-        'wait_time' => env('PUBSUB_WAIT_TIME', 3),
-
-        // Enable message ordering
-        'enable_message_ordering' => env('PUBSUB_ENABLE_ORDERING', false),
-
-        // Retry policy
-        'retry_policy' => [
-            'minimum_backoff' => env('PUBSUB_MIN_BACKOFF', 10),
-            'maximum_backoff' => env('PUBSUB_MAX_BACKOFF', 600),
-        ],
-
-        // Dead letter policy
-        'dead_letter_policy' => [
-            'enabled' => env('PUBSUB_DEAD_LETTER_ENABLED', true),
-            'max_delivery_attempts' => env('PUBSUB_MAX_DELIVERY_ATTEMPTS', 5),
-            'dead_letter_topic_suffix' => env('PUBSUB_DEAD_LETTER_SUFFIX', '-dead-letter'),
-        ],
+    // Dead letter policy
+    'dead_letter_policy' => [
+        'enabled' => env('PUBSUB_DEAD_LETTER_ENABLED', true),
+        'max_delivery_attempts' => env('PUBSUB_MAX_DELIVERY_ATTEMPTS', 5),
+        'dead_letter_topic_suffix' => env('PUBSUB_DEAD_LETTER_SUFFIX', '-dead-letter'),
     ],
 
     /*
@@ -85,12 +89,52 @@ return [
     */
 
     'message_options' => [
-        // Add Laravel-specific attributes to messages
         'add_metadata' => env('PUBSUB_ADD_METADATA', true),
-
-        // Compress large payloads
         'compress_payload' => env('PUBSUB_COMPRESS_PAYLOAD', true),
         'compression_threshold' => env('PUBSUB_COMPRESSION_THRESHOLD', 1024), // bytes
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Topic Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure specific topics with their settings, schemas, and events.
+    |
+    */
+
+    'topics' => [
+        // 'orders' => [
+        //     'enable_message_ordering' => true,
+        //     'schema' => 'order_events',
+        //     'events' => [
+        //         \App\Events\OrderPlaced::class,
+        //         \App\Events\OrderUpdated::class,
+        //     ],
+        // ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Event Integration
+    |--------------------------------------------------------------------------
+    |
+    | Configure which Laravel events should be published to Pub/Sub.
+    |
+    */
+
+    'events' => [
+        'enabled' => env('PUBSUB_EVENTS_ENABLED', false),
+
+        // Events to publish to Pub/Sub
+        'publish' => [
+            // \App\Events\OrderPlaced::class,
+        ],
+
+        // Or use patterns
+        'publish_patterns' => [
+            // 'App\Events\Order*',
+        ],
     ],
 
     /*
