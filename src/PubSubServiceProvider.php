@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Shavonn\GooglePubSub\Failed\PubSubFailedJobProvider;
 use Shavonn\GooglePubSub\Queue\PubSubConnector;
 
-class GooglePubSubServiceProvider extends ServiceProvider
+class PubSubServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -18,7 +18,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
             // Publish config
             $this->publishes([
                 __DIR__.'/../config/pubsub.php' => config_path('pubsub.php'),
-            ], 'google-pubsub-config');
+            ], 'pubsub-config');
         }
     }
 
@@ -39,7 +39,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
     {
         $this->app->resolving('queue', function (QueueManager $manager) {
             $manager->extend('pubsub', function () {
-                return new PubSubConnector();
+                return new PubSubConnector;
             });
         });
     }
