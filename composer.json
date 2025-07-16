@@ -20,10 +20,11 @@
   ],
   "require": {
     "php": "^8.4",
+    "ext-zlib": "*",
     "google/cloud-pubsub": "^2.13",
     "illuminate/queue": "^12.0",
     "illuminate/support": "^12.0",
-    "ext-zlib": "*"
+    "opis/json-schema": "^2.4"
   },
   "require-dev": {
     "larastan/larastan": "^3.0",
