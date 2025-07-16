@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Shavonn\GooglePubSub;
 
-use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Queue\QueueManager;
+use Illuminate\Container\Container;
 use Shavonn\GooglePubSub\Queue\PubSubConnector;
 use Shavonn\GooglePubSub\Failed\PubSubFailedJobProvider;
 use Shavonn\GooglePubSub\Events\PubSubEventDispatcher;
@@ -24,6 +24,7 @@ class PubSubServiceProvider extends ServiceProvider
         Console\Commands\CreateSubscriptionCommand::class,
         Console\Commands\ListenCommand::class,
         Console\Commands\PublishCommand::class,
+        Console\Commands\ValidateSchemaCommand::class,
     ];
 
     /**
@@ -32,9 +33,7 @@ class PubSubServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/pubsub.php' => config_path('pubsub.php'),
-            ], 'pubsub-config');
+            $this->publishes([__DIR__ . '/../config/pubsub.php' => config_path('pubsub.php')], 'pubsub-config');
 
             $this->commands($this->commands);
         }
@@ -47,10 +46,7 @@ class PubSubServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/pubsub.php',
-            'pubsub'
-        );
+        $this->mergeConfigFrom(__DIR__ . '/../config/pubsub.php', 'pubsub');
 
         $this->registerPubSubManager();
         $this->registerPubSubConnector();
@@ -69,7 +65,6 @@ class PubSubServiceProvider extends ServiceProvider
 
         $this->app->alias('pubsub', PubSubManager::class);
     }
-
 
     /**
      * Register the Pub/Sub queue connector.
