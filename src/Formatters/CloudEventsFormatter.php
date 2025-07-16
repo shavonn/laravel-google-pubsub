@@ -28,7 +28,7 @@ class CloudEventsFormatter implements MessageFormatter
     /**
      * Create a new CloudEvents formatter.
      */
-    public function __construct(string $source = null, string $defaultType = null)
+    public function __construct(?string $source = null, ?string $defaultType = null)
     {
         $this->source = $source ?? config('app.url', 'https://example.com');
 
