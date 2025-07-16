@@ -4,8 +4,8 @@ namespace Shavonn\GooglePubSub;
 
 use Illuminate\Queue\QueueManager;
 use Illuminate\Support\ServiceProvider;
-use Shavonn\GooglePubSub\Failed\GooglePubSubFailedJobProvider;
-use Shavonn\GooglePubSub\Queue\GooglePubSubConnector;
+use Shavonn\GooglePubSub\Failed\PubSubFailedJobProvider;
+use Shavonn\GooglePubSub\Queue\PubSubConnector;
 
 class GooglePubSubServiceProvider extends ServiceProvider
 {
@@ -39,7 +39,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
     {
         $this->app->resolving('queue', function (QueueManager $manager) {
             $manager->extend('pubsub', function () {
-                return new GooglePubSubConnector();
+                return new PubSubConnector;
             });
         });
     }
@@ -50,7 +50,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
     protected function registerFailedJobProvider(): void
     {
         $this->app->singleton('queue.failed.pubsub', function ($app) {
-            return new GooglePubSubFailedJobProvider(
+            return new PubSubFailedJobProvider(
                 $app['config']['pubsub']
             );
         });

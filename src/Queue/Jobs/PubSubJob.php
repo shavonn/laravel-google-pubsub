@@ -10,9 +10,9 @@ use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Jobs\Job;
 use Illuminate\Support\Arr;
 use Shavonn\GooglePubSub\Exceptions\MessageConversionException;
-use Shavonn\GooglePubSub\Queue\GooglePubSubQueue;
+use Shavonn\GooglePubSub\Queue\PubSubQueue;
 
-class GooglePubSubJob extends Job implements JobContract
+class PubSubJob extends Job implements JobContract
 {
     /**
      * The Pub/Sub message instance.
@@ -27,14 +27,14 @@ class GooglePubSubJob extends Job implements JobContract
     /**
      * The Pub/Sub queue instance.
      */
-    protected GooglePubSubQueue $pubsubQueue;
+    protected PubSubQueue $pubsubQueue;
 
     /**
      * Create a new job instance.
      */
     public function __construct(
         Container $container,
-        GooglePubSubQueue $pubsubQueue,
+        PubSubQueue $pubsubQueue,
         Message $message,
         Subscription $subscription,
         string $connectionName,
