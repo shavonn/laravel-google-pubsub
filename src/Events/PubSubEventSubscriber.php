@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Shavonn\GooglePubSub\Events;
 
+use Exception;
 use Google\Cloud\PubSub\Message;
 use Illuminate\Contracts\Events\Dispatcher;
+use ReflectionClass;
 use Shavonn\GooglePubSub\PubSubManager;
+use Shavonn\GooglePubSub\Messages\WebhookMessage;
 use Illuminate\Support\Facades\Log;
 
 class PubSubEventSubscriber
@@ -52,7 +55,7 @@ class PubSubEventSubscriber
             $this->handleMessage($data, $message, $topic);
         });
 
-        $subscriber->onError(function (\Exception $e, ?Message $message) use ($topic) {
+        $subscriber->onError(function (Exception $e, ?Message $message) use ($topic) {
             Log::error('PubSub event subscriber error', [
                 'topic' => $topic,
                 'error' => $e->getMessage(),
@@ -93,7 +96,7 @@ class PubSubEventSubscriber
     /**
      * Handle an incoming message.
      */
-    protected function handleMessage(array $data, Message $message, string $topic): void
+    public function handleMessage(array $data, Message|WebhookMessage $message, string $topic): void
     {
         try {
             // Check if it's a Laravel event from another service
@@ -104,7 +107,7 @@ class PubSubEventSubscriber
 
             // Dispatch as a generic PubSub event
             $this->dispatchGenericEvent($data, $message, $topic);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Failed to handle PubSub message as event', [
                 'topic' => $topic,
                 'message_id' => $message->id(),
@@ -125,7 +128,7 @@ class PubSubEventSubscriber
     /**
      * Dispatch a Laravel event from a message.
      */
-    protected function dispatchLaravelEvent(array $data, Message $message): void
+    protected function dispatchLaravelEvent(array $data, Message|WebhookMessage $message): void
     {
         $eventClass = $data['class'];
         $eventData = $data['data'];
@@ -145,7 +148,7 @@ class PubSubEventSubscriber
                     'event' => $eventClass,
                     'message_id' => $message->id(),
                 ]);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // Fall back to generic event
                 $this->dispatchGenericEvent($data, $message, 'unknown');
             }
@@ -162,7 +165,7 @@ class PubSubEventSubscriber
     /**
      * Dispatch a generic PubSub event.
      */
-    protected function dispatchGenericEvent(array $data, Message $message, string $topic): void
+    protected function dispatchGenericEvent(array $data, Message|WebhookMessage $message, string $topic): void
     {
         // Get event type from attributes or data
         $attributes = $message->attributes();
@@ -203,15 +206,15 @@ class PubSubEventSubscriber
     /**
      * Reconstruct an event from data.
      */
-    protected function reconstructEvent(string $eventClass, array $data, Message $message)
+    protected function reconstructEvent(string $eventClass, array $data, Message|WebhookMessage $message)
     {
         // Check if the event class has a fromPubSub method
         if (method_exists($eventClass, 'fromPubSub')) {
-            return $eventClass::fromPubSub($data, $message);
+            return call_user_func([$eventClass, 'fromPubSub'], $data, $message);
         }
 
         // Try to create with constructor
-        $reflection = new \ReflectionClass($eventClass);
+        $reflection = new ReflectionClass($eventClass);
         $constructor = $reflection->getConstructor();
 
         if (!$constructor) {
@@ -227,7 +230,7 @@ class PubSubEventSubscriber
             } elseif ($param->isDefaultValueAvailable()) {
                 $parameters[] = $param->getDefaultValue();
             } else {
-                throw new \Exception("Cannot reconstruct event: missing required parameter '{$name}'");
+                throw new Exception("Cannot reconstruct event: missing required parameter '{$name}'");
             }
         }
 
