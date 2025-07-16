@@ -7,10 +7,14 @@ namespace Shavonn\GooglePubSub;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Queue\QueueManager;
 use Illuminate\Container\Container;
+use Illuminate\Support\Facades\Route;
+use Override;
 use Shavonn\GooglePubSub\Queue\PubSubConnector;
 use Shavonn\GooglePubSub\Failed\PubSubFailedJobProvider;
 use Shavonn\GooglePubSub\Events\PubSubEventDispatcher;
 use Shavonn\GooglePubSub\Events\PubSubEventSubscriber;
+use Shavonn\GooglePubSub\Http\Controllers\PubSubWebhookController;
+use Shavonn\GooglePubSub\Http\Middleware\VerifyPubSubWebhook;
 
 class PubSubServiceProvider extends ServiceProvider
 {
@@ -22,6 +26,7 @@ class PubSubServiceProvider extends ServiceProvider
         Console\Commands\CreateTopicCommand::class,
         Console\Commands\ListSubscriptionsCommand::class,
         Console\Commands\CreateSubscriptionCommand::class,
+        Console\Commands\CreatePushSubscriptionCommand::class,
         Console\Commands\ListenCommand::class,
         Console\Commands\PublishCommand::class,
         Console\Commands\ValidateSchemaCommand::class,
@@ -33,20 +38,26 @@ class PubSubServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__ . '/../config/pubsub.php' => config_path('pubsub.php')], 'pubsub-config');
+            $this->publishes([
+                __DIR__ . '/../config/pubsub.php' => config_path('pubsub.php'),
+            ], 'pubsub-config');
 
             $this->commands($this->commands);
         }
 
         $this->registerEventIntegration();
+        $this->registerWebhookRoutes();
     }
 
     /**
      * Register the application services.
      */
-    public function register(): void
+    #[Override] public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/pubsub.php', 'pubsub');
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/pubsub.php',
+            'pubsub'
+        );
 
         $this->registerPubSubManager();
         $this->registerPubSubConnector();
@@ -129,11 +140,29 @@ class PubSubServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register webhook routes.
+     */
+    protected function registerWebhookRoutes(): void
+    {
+        if (!config('pubsub.webhook.enabled', true)) {
+            return;
+        }
+
+        $prefix = config('pubsub.webhook.route_prefix', 'pubsub/webhook');
+        $middleware = config('pubsub.webhook.middleware', [VerifyPubSubWebhook::class]);
+
+        Route::group(compact('prefix', 'middleware'), function () {
+            Route::post('{topic}', [PubSubWebhookController::class, 'handle'])
+                ->name('pubsub.webhook');
+        });
+    }
+
+    /**
      * Get the services provided by the provider.
      *
      * @return array<string>
      */
-    public function provides(): array
+    #[Override] public function provides(): array
     {
         return [
             'pubsub',
