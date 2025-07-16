@@ -11,4 +11,4 @@ parameters:
   checkModelProperties: true
   ignoreErrors:
     - identifier: larastan.noEnvCallsOutsideOfConfig
-      path: config/pubsub-queue.php
+      path: config/pubsub.php

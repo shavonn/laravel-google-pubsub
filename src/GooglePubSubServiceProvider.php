@@ -17,8 +17,8 @@ class GooglePubSubServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             // Publish config
             $this->publishes([
-                __DIR__.'/../config/pubsub-queue.php' => config_path('pubsub-queue.php'),
-            ], 'google-pubsub-queue-config');
+                __DIR__.'/../config/pubsub.php' => config_path('pubsub.php'),
+            ], 'google-pubsub-config');
         }
     }
 
@@ -27,7 +27,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/pubsub-queue.php', 'pubsub-queue');
+        $this->mergeConfigFrom(__DIR__.'/../config/pubsub.php', 'pubsub');
         $this->registerPubSubConnector();
         $this->registerFailedJobProvider();
     }
@@ -51,7 +51,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
     {
         $this->app->singleton('queue.failed.pubsub', function ($app) {
             return new GooglePubSubFailedJobProvider(
-                $app['config']['pubsub-queue']
+                $app['config']['pubsub']
             );
         });
     }

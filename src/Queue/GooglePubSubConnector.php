@@ -37,7 +37,7 @@ class GooglePubSubConnector implements ConnectorInterface
 
         return new GooglePubSubQueue(
             $client,
-            $config['queue'] ?? config('pubsub-queue.default_queue'),
+            $config['queue'] ?? config('pubsub.default_queue'),
             Arr::except($config, ['driver', 'project_id', 'key_file'])
         );
     }
@@ -49,7 +49,7 @@ class GooglePubSubConnector implements ConnectorInterface
      */
     protected function getPubSubConfig(array $config): array
     {
-        $projectId = $config['project_id'] ?? config('pubsub-queue.project_id');
+        $projectId = $config['project_id'] ?? config('pubsub.project_id');
 
         if (empty($projectId)) {
             throw new GooglePubSubException('Google Cloud project ID is required');
@@ -57,10 +57,10 @@ class GooglePubSubConnector implements ConnectorInterface
 
         $pubsubConfig = compact('projectId');
 
-        $authMethod = $config['auth_method'] ?? config('pubsub-queue.auth_method', 'application_default');
+        $authMethod = $config['auth_method'] ?? config('pubsub.auth_method', 'application_default');
 
         if ($authMethod === 'key_file') {
-            $keyFile = $config['key_file'] ?? config('pubsub-queue.key_file');
+            $keyFile = $config['key_file'] ?? config('pubsub.key_file');
 
             if (empty($keyFile)) {
                 throw new GooglePubSubException('Key file path is required when using key_file auth method');

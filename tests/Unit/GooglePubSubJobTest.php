@@ -119,7 +119,7 @@ it('can get publish time', function () {
     $result = $job->getPublishTime();
 
     expect($result)->toBeString()
-        ->and((new DateTime($result))->format('Y-m-d\TH:i:s\Z'))->toBe($publishTime);
+        ->and(new DateTime($result)->format('Y-m-d\TH:i:s\Z'))->toBe($publishTime);
 });
 
 it('handles ordering key', function () {

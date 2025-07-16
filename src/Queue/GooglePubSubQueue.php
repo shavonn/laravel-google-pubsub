@@ -40,7 +40,7 @@ class GooglePubSubQueue extends Queue implements QueueContract
     {
         $this->pubsub = $pubsub;
         $this->default = $default;
-        $this->options = array_merge(config('pubsub-queue.queue_options', []), $options);
+        $this->options = array_merge(config('pubsub.queue_options', []), $options);
         $this->connectionName = 'pubsub';
     }
 

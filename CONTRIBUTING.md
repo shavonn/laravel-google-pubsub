@@ -31,13 +31,13 @@ Feature suggestions are welcome! Please create an issue and include:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/shavonn/laravel-google-pubsub-queue.git
-   cd laravel-google-pubsub-queue
+   git clone https://github.com/shavonn/laravel-google-pubsub.git
+   cd laravel-google-pubsub
    ```
 
    *Note: If you don't have write access to the repository, you'll need to fork it first and clone your fork instead:*
    ```bash
-   git clone https://github.com/your-username/laravel-google-pubsub-queue.git
+   git clone https://github.com/your-username/laravel-google-pubsub.git
    ```
 
 2. Install dependencies:
@@ -84,7 +84,7 @@ composer test
     - If you have write access: `git push origin your-branch-name`
     - If working from a fork: `git push origin your-branch-name` (this pushes to your fork)
 2. Create a pull request:
-    - Go to the [Laravel Google Pub/Sub repository](https://github.com/shavonn/laravel-google-pubsub-queue)
+    - Go to the [Laravel Google Pub/Sub repository](https://github.com/shavonn/laravel-google-pubsub)
     - Click "New pull request"
     - If working from a fork, click "compare across forks"
     - Select your branch and create the PR

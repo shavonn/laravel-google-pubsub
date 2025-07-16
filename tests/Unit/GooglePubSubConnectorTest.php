@@ -12,7 +12,7 @@ it('throws exception when project id is missing', function () {
     ];
 
     // Clear the config value to ensure it's not set
-    config(['pubsub-queue.project_id' => null]);
+    config(['pubsub.project_id' => null]);
 
     expect(fn () => $connector->connect($config))
         ->toThrow(GooglePubSubException::class, 'Google Cloud project ID is required');
