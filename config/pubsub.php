@@ -96,6 +96,53 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Message Schemas
+    |--------------------------------------------------------------------------
+    |
+    | Define JSON schemas for message validation.
+    |
+    */
+
+    'schemas' => [
+        // Example schema configuration
+        // 'order_events' => [
+        //     'file' => 'schemas/order-events.json',
+        // ],
+        // 'user_events' => [
+        //     'schema' => [
+        //         '$schema' => 'http://json-schema.org/draft-07/schema#',
+        //         'type' => 'object',
+        //         'required' => ['user_id', 'event_type'],
+        //         'properties' => [
+        //             'user_id' => ['type' => 'integer'],
+        //             'event_type' => ['type' => 'string'],
+        //             'data' => ['type' => 'object'],
+        //         ],
+        //     ],
+        // ],
+    ],
+
+    'schema_validation' => [
+        'enabled' => env('PUBSUB_SCHEMA_VALIDATION', true),
+        'strict_mode' => env('PUBSUB_SCHEMA_STRICT', true),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Message Formatters
+    |--------------------------------------------------------------------------
+    |
+    | Configure message formatters for different topics.
+    |
+    */
+
+    'formatters' => [
+        'default' => 'json',
+        'cloud_events_source' => env('PUBSUB_CLOUDEVENTS_SOURCE', config('app.url')),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Topic Configuration
     |--------------------------------------------------------------------------
     |
