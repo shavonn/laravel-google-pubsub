@@ -4,7 +4,7 @@ use Shavonn\GooglePubSub\Exceptions\PubSubException;
 use Shavonn\GooglePubSub\Queue\PubSubConnector;
 
 it('throws exception when project id is missing', function () {
-    $connector = new PubSubConnector;
+    $connector = new PubSubConnector();
 
     $config = [
         'driver' => 'pubsub',
@@ -19,7 +19,7 @@ it('throws exception when project id is missing', function () {
 });
 
 it('throws exception when key file is missing for key_file auth', function () {
-    $connector = new PubSubConnector;
+    $connector = new PubSubConnector();
 
     $config = [
         'driver' => 'pubsub',
@@ -33,7 +33,7 @@ it('throws exception when key file is missing for key_file auth', function () {
 });
 
 it('throws exception when key file does not exist', function () {
-    $connector = new PubSubConnector;
+    $connector = new PubSubConnector();
 
     $config = [
         'driver' => 'pubsub',

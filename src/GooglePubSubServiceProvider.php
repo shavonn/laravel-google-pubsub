@@ -39,7 +39,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
     {
         $this->app->resolving('queue', function (QueueManager $manager) {
             $manager->extend('pubsub', function () {
-                return new PubSubConnector;
+                return new PubSubConnector();
             });
         });
     }
