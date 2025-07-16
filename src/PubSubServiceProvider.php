@@ -3,6 +3,7 @@
 namespace Shavonn\GooglePubSub;
 
 use Illuminate\Queue\QueueManager;
+use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Shavonn\GooglePubSub\Failed\PubSubFailedJobProvider;
 use Shavonn\GooglePubSub\Queue\PubSubConnector;
@@ -39,8 +40,8 @@ class PubSubServiceProvider extends ServiceProvider
      */
     protected function registerPubSubManager(): void
     {
-        $this->app->singleton('pubsub', function ($app) {
-            return new PubSubManager($app);
+        $this->app->singleton('pubsub', function () {
+            return new PubSubManager(fn () => Container::getInstance());
         });
 
         $this->app->alias('pubsub', PubSubManager::class);

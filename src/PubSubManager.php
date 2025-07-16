@@ -4,13 +4,18 @@ namespace Shavonn\GooglePubSub;
 
 use Google\Cloud\PubSub\PubSubClient;
 use Illuminate\Support\Manager;
-use Shavonn\GooglePubSub\Exceptions\PubSubException;
 use Shavonn\GooglePubSub\Publisher\Publisher;
-use Shavonn\GooglePubSub\Subscriber\StreamingSubscriber;
 use Shavonn\GooglePubSub\Subscriber\Subscriber;
+use Shavonn\GooglePubSub\Subscriber\StreamingSubscriber;
+use Shavonn\GooglePubSub\Exceptions\PubSubException;
 
 class PubSubManager extends Manager
 {
+    /**
+     * The application instance resolver.
+     */
+    protected $appResolver;
+
     /**
      * The Publisher instance.
      */
@@ -20,6 +25,22 @@ class PubSubManager extends Manager
      * The array of resolved subscribers.
      */
     protected array $subscribers = [];
+
+    /**
+     * Create a new PubSub manager instance.
+     */
+    public function __construct($appResolver)
+    {
+        $this->appResolver = $appResolver;
+    }
+
+    /**
+     * Get the application instance.
+     */
+    protected function getApplication()
+    {
+        return is_callable($this->appResolver) ? call_user_func($this->appResolver) : $this->appResolver;
+    }
 
     /**
      * Get the default driver name.
@@ -34,7 +55,8 @@ class PubSubManager extends Manager
      */
     protected function createPubsubDriver(): PubSubClient
     {
-        $config = $this->config->get('pubsub', []);
+        $app = $this->getApplication();
+        $config = $app->make('config')->get('pubsub', []);
 
         $pubsubConfig = [
             'projectId' => $config['project_id'] ?? null,
@@ -51,14 +73,14 @@ class PubSubManager extends Manager
 
         $authMethod = $config['auth_method'] ?? 'application_default';
 
-        if ($authMethod === 'key_file' && ! isset($pubsubConfig['emulatorHost'])) {
+        if ($authMethod === 'key_file' && !isset($pubsubConfig['emulatorHost'])) {
             $keyFile = $config['key_file'] ?? null;
 
             if (empty($keyFile)) {
                 throw new PubSubException('Key file path is required when using key_file auth method');
             }
 
-            if (! file_exists($keyFile)) {
+            if (!file_exists($keyFile)) {
                 throw new PubSubException("Key file not found: {$keyFile}");
             }
 
@@ -81,10 +103,11 @@ class PubSubManager extends Manager
      */
     public function publisher(): Publisher
     {
-        if (! $this->publisher) {
+        if (!$this->publisher) {
+            $app = $this->getApplication();
             $this->publisher = new Publisher(
                 $this->client(),
-                $this->config->get('pubsub', [])
+                $app->make('config')->get('pubsub', [])
             );
         }
 
@@ -96,8 +119,9 @@ class PubSubManager extends Manager
      */
     public function subscriber(string $subscriptionName, ?string $topic = null): Subscriber
     {
-        if (! isset($this->subscribers[$subscriptionName])) {
-            $config = $this->config->get('pubsub', []);
+        if (!isset($this->subscribers[$subscriptionName])) {
+            $app = $this->getApplication();
+            $config = $app->make('config')->get('pubsub', []);
 
             // Use StreamingSubscriber if configured
             if ($config['use_streaming'] ?? true) {
@@ -123,7 +147,10 @@ class PubSubManager extends Manager
     /**
      * Publish a message to a topic.
      *
-     * @param  mixed  $data
+     * @param string $topic
+     * @param mixed $data
+     * @param array $attributes
+     * @param array $options
      * @return string Message ID
      */
     public function publish(string $topic, $data, array $attributes = [], array $options = []): string
@@ -133,6 +160,10 @@ class PubSubManager extends Manager
 
     /**
      * Subscribe to a topic.
+     *
+     * @param string $subscription
+     * @param string|null $topic
+     * @return Subscriber
      */
     public function subscribe(string $subscription, ?string $topic = null): Subscriber
     {
@@ -146,7 +177,7 @@ class PubSubManager extends Manager
     {
         $topic = $this->client()->topic($topicName);
 
-        if (! $topic->exists()) {
+        if (!$topic->exists()) {
             $topic->create($options);
         }
     }
@@ -158,7 +189,7 @@ class PubSubManager extends Manager
     {
         $subscription = $this->client()->subscription($subscriptionName);
 
-        if (! $subscription->exists()) {
+        if (!$subscription->exists()) {
             $topic = $this->client()->topic($topicName);
             $topic->subscribe($subscriptionName, $options);
         }
