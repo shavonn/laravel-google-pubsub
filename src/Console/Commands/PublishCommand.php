@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shavonn\GooglePubSub\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Shavonn\GooglePubSub\Facades\PubSub;
 
@@ -48,7 +51,7 @@ class PublishCommand extends Command
             $this->line("Message ID: {$messageId}");
 
             return Command::SUCCESS;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error('Failed to publish message: ' . $e->getMessage());
             return Command::FAILURE;
         }

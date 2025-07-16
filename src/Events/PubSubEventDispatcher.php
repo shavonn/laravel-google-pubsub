@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shavonn\GooglePubSub\Events;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 use ReflectionClass;
+use Shavonn\GooglePubSub\Attributes\PublishTo;
 use Shavonn\GooglePubSub\PubSubManager;
 use Shavonn\GooglePubSub\Contracts\ShouldPublishToPubSub;
 use Illuminate\Support\Facades\Log;
@@ -163,7 +166,7 @@ class PubSubEventDispatcher
 
         // Check if event has PublishTo attribute
         $reflection = new ReflectionClass($event);
-        $attributes = $reflection->getAttributes(Attributes\PublishTo::class);
+        $attributes = $reflection->getAttributes(PublishTo::class);
         if (!empty($attributes)) {
             return $attributes[0]->newInstance()->topic;
         }

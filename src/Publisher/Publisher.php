@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shavonn\GooglePubSub\Publisher;
 
+use Exception;
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Topic;
 use Illuminate\Support\Facades\Log;
@@ -76,7 +79,7 @@ class Publisher
             }
 
             return $messageId;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new PublishException(
                 "Failed to publish message to topic '{$topicName}': {$e->getMessage()}",
                 $e->getCode(),
@@ -111,7 +114,7 @@ class Publisher
             $result = $topic->publishBatch($formattedMessages);
 
             return $result['messageIds'] ?? [];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new PublishException(
                 "Failed to publish batch to topic '{$topicName}': {$e->getMessage()}",
                 $e->getCode(),

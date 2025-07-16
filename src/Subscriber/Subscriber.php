@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shavonn\GooglePubSub\Subscriber;
 
+use Closure;
+use Exception;
 use Google\Cloud\PubSub\Message;
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Subscription;
@@ -50,7 +54,7 @@ class Subscriber
     /**
      * Error handler callback.
      */
-    protected ?\Closure $errorHandler = null;
+    protected ?Closure $errorHandler = null;
 
     /**
      * Create a new subscriber instance.
@@ -116,13 +120,13 @@ class Subscriber
             foreach ($messages as $message) {
                 try {
                     $results[] = $this->processMessage($message);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     $this->handleError($e, $message);
                 }
             }
 
             return $results;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new SubscriptionException(
                 "Failed to pull messages: {$e->getMessage()}",
                 $e->getCode(),
@@ -151,7 +155,7 @@ class Subscriber
                 if ($this->shouldStop()) {
                     break;
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->handleError($e);
 
                 // Wait before retrying
@@ -279,7 +283,7 @@ class Subscriber
     /**
      * Handle an error.
      */
-    protected function handleError(\Exception $e, ?Message $message = null): void
+    protected function handleError(Exception $e, ?Message $message = null): void
     {
         if ($this->errorHandler) {
             ($this->errorHandler)($e, $message);

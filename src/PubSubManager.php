@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shavonn\GooglePubSub;
 
 use Google\Cloud\PubSub\PubSubClient;

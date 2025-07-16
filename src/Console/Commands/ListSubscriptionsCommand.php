@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shavonn\GooglePubSub\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Shavonn\GooglePubSub\Facades\PubSub;
 
@@ -42,7 +45,7 @@ class ListSubscriptionsCommand extends Command
             $this->table(['Subscription', 'Topic', 'Ack Deadline'], $rows);
 
             return Command::SUCCESS;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error('Failed to list subscriptions: ' . $e->getMessage());
             return Command::FAILURE;
         }
