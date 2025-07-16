@@ -3,12 +3,12 @@
 use Google\Cloud\PubSub\Message;
 use Google\Cloud\PubSub\Subscription;
 use Illuminate\Container\Container;
-use Shavonn\GooglePubSub\Queue\GooglePubSub;
+use Shavonn\GooglePubSub\Queue\GooglePubSubQueue;
 use Shavonn\GooglePubSub\Queue\Jobs\GooglePubSubJob;
 
 beforeEach(function () {
     $this->container = Mockery::mock(Container::class);
-    $this->pubsubQueue = Mockery::mock(GooglePubSub::class);
+    $this->pubsubQueue = Mockery::mock(GooglePubSubQueue::class);
     $this->message = Mockery::mock(Message::class);
     $this->subscription = Mockery::mock(Subscription::class);
 });
@@ -118,8 +118,8 @@ it('can get publish time', function () {
 
     $result = $job->getPublishTime();
 
-    expect($result)->toBeInstanceOf(DateTimeInterface::class)
-        ->and($result->format('Y-m-d\TH:i:s\Z'))->toBe($publishTime);
+    expect($result)->toBeString()
+        ->and((new DateTime($result))->format('Y-m-d\TH:i:s\Z'))->toBe($publishTime);
 });
 
 it('handles ordering key', function () {

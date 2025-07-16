@@ -138,15 +138,15 @@ class GooglePubSubJob extends Job implements JobContract
     /**
      * Get the message publish time.
      */
-    public function getPublishTime(): ?DateTimeInterface
+    public function getPublishTime(): DateTimeInterface|string|null
     {
         $publishTime = $this->message->publishTime();
 
-        if (! $publishTime) {
-            return null;
+        if ($publishTime) {
+            return $publishTime;
         }
 
-        return $publishTime;
+        return null;
     }
 
     /**
