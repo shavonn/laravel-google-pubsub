@@ -1,5 +1,7 @@
 <?php
 
+use Shavonn\GooglePubSub\Http\Middleware\VerifyPubSubWebhook;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -186,6 +188,33 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Webhook Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure webhook endpoints for push subscriptions.
+    |
+    */
+
+    'webhook' => [
+        'enabled' => env('PUBSUB_WEBHOOK_ENABLED', true),
+        'route_prefix' => env('PUBSUB_WEBHOOK_PREFIX', 'pubsub/webhook'),
+        'auth_token' => env('PUBSUB_WEBHOOK_TOKEN'),
+        'skip_verification' => env('PUBSUB_WEBHOOK_SKIP_VERIFICATION', false),
+
+        // IP allowlist (leave empty to allow all)
+        'allowed_ips' => [
+            // Google's IP ranges for Pub/Sub
+            // See: https://cloud.google.com/pubsub/docs/push#receive_push
+        ],
+
+        // Additional middleware
+        'middleware' => [
+            VerifyPubSubWebhook::class,
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Monitoring and Logging
     |--------------------------------------------------------------------------
     */
@@ -194,5 +223,6 @@ return [
         'log_published_messages' => env('PUBSUB_LOG_PUBLISHED', false),
         'log_consumed_messages' => env('PUBSUB_LOG_CONSUMED', false),
         'log_failed_messages' => env('PUBSUB_LOG_FAILED', true),
+        'log_webhooks' => env('PUBSUB_LOG_WEBHOOKS', false),
     ],
 ];
