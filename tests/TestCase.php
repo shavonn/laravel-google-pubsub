@@ -1,0 +1,30 @@
+<?php
+
+namespace Shavonn\GooglePubSub\Tests;
+
+use Orchestra\Testbench\TestCase as Orchestra;
+use Shavonn\GooglePubSub\GooglePubSubServiceProvider;
+
+abstract class TestCase extends Orchestra
+{
+    protected function getPackageProviders($app): array
+    {
+        return [
+            GooglePubSubServiceProvider::class,
+        ];
+    }
+
+    protected function getEnvironmentSetUp($app): void
+    {
+        $app['config']->set('queue.default', 'pubsub');
+        $app['config']->set('queue.connections.pubsub', [
+            'driver' => 'pubsub',
+            'project_id' => 'test-project',
+            'queue' => 'default',
+            'auth_method' => 'application_default',
+        ]);
+
+        $app['config']->set('pubsub-queue.project_id', 'test-project');
+        $app['config']->set('pubsub-queue.default_queue', 'default');
+    }
+}
