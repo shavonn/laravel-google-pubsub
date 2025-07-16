@@ -3,14 +3,14 @@
 namespace Shavonn\GooglePubSub\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Shavonn\GooglePubSub\GooglePubSubServiceProvider;
+use Shavonn\GooglePubSub\PubSubServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
     protected function getPackageProviders($app): array
     {
         return [
-            GooglePubSubServiceProvider::class,
+            PubSubServiceProvider::class,
         ];
     }
 

@@ -36,7 +36,7 @@ composer require shavonn/laravel-google-pubsub
 ### Publish Configuration
 
 ```bash
-php artisan vendor:publish --tag=google-pubsub-config
+php artisan vendor:publish --tag=pubsub-config
 ```
 
 ## Configuration

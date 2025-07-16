@@ -63,7 +63,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Shavonn\\GooglePubSub\\GooglePubSubServiceProvider"
+        "PubSubServiceProvider"
       ]
     }
   },
