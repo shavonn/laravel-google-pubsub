@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shavonn\GooglePubSub\Formatters;
 
 use Shavonn\GooglePubSub\Contracts\MessageFormatter;

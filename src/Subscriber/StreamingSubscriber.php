@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shavonn\GooglePubSub\Subscriber;
 
+use Exception;
 use Google\Cloud\PubSub\Message;
 use Illuminate\Support\Facades\Log;
 use Shavonn\GooglePubSub\Exceptions\SubscriptionException;
@@ -31,7 +34,7 @@ class StreamingSubscriber extends Subscriber
                     foreach ($messages as $message) {
                         try {
                             $this->processStreamMessage($message, $subscription);
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             $this->handleError($e, $message);
 
                             // Optionally nack the message by setting ack deadline to 0
@@ -52,7 +55,7 @@ class StreamingSubscriber extends Subscriber
                     usleep(100000); // 100ms
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new SubscriptionException(
                 "Streaming pull failed: {$e->getMessage()}",
                 $e->getCode(),
