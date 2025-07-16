@@ -7,10 +7,10 @@ use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Topic;
 use Illuminate\Queue\Failed\FailedJobProviderInterface;
 use Illuminate\Support\Facades\Date;
-use Shavonn\GooglePubSub\Exceptions\GooglePubSubException;
+use Shavonn\GooglePubSub\Exceptions\PubSubException;
 use Throwable;
 
-class GooglePubSubFailedJobProvider implements FailedJobProviderInterface
+class PubSubFailedJobProvider implements FailedJobProviderInterface
 {
     /**
      * The configuration array.
@@ -79,7 +79,7 @@ class GooglePubSubFailedJobProvider implements FailedJobProviderInterface
 
             return $result['messageIds'][0] ?? null;
         } catch (Exception $e) {
-            throw new GooglePubSubException(
+            throw new PubSubException(
                 "Failed to log failed job: {$e->getMessage()}",
                 $e->getCode(),
                 $e

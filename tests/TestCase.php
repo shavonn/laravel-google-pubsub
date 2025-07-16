@@ -24,7 +24,7 @@ abstract class TestCase extends Orchestra
             'auth_method' => 'application_default',
         ]);
 
-        $app['config']->set('pubsub-queue.project_id', 'test-project');
-        $app['config']->set('pubsub-queue.default_queue', 'default');
+        $app['config']->set('pubsub.project_id', 'test-project');
+        $app['config']->set('pubsub.default_queue', 'default');
     }
 }

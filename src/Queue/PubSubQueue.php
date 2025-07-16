@@ -11,10 +11,10 @@ use Google\Cloud\PubSub\Topic;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Contracts\Queue\Queue as QueueContract;
 use Illuminate\Queue\Queue;
-use Shavonn\GooglePubSub\Exceptions\GooglePubSubException;
-use Shavonn\GooglePubSub\Queue\Jobs\GooglePubSubJob;
+use Shavonn\GooglePubSub\Exceptions\PubSubException;
+use Shavonn\GooglePubSub\Queue\Jobs\PubSubJob;
 
-class GooglePubSubQueue extends Queue implements QueueContract
+class PubSubQueue extends Queue implements QueueContract
 {
     /**
      * The Pub/Sub client instance.
@@ -40,7 +40,7 @@ class GooglePubSubQueue extends Queue implements QueueContract
     {
         $this->pubsub = $pubsub;
         $this->default = $default;
-        $this->options = array_merge(config('pubsub-queue.queue_options', []), $options);
+        $this->options = array_merge(config('pubsub.queue_options', []), $options);
         $this->connectionName = 'pubsub';
     }
 
@@ -63,7 +63,7 @@ class GooglePubSubQueue extends Queue implements QueueContract
      * @param  mixed  $data
      * @param  string|null  $queue
      *
-     * @throws GooglePubSubException
+     * @throws PubSubException
      */
     public function push($job, $data = '', $queue = null): mixed
     {
@@ -76,7 +76,7 @@ class GooglePubSubQueue extends Queue implements QueueContract
      * @param  string  $payload
      * @param  string|null  $queue
      *
-     * @throws GooglePubSubException
+     * @throws PubSubException
      */
     public function pushRaw($payload, $queue = null, array $options = []): mixed
     {
@@ -97,7 +97,7 @@ class GooglePubSubQueue extends Queue implements QueueContract
 
             return $message['messageIds'][0] ?? null;
         } catch (Exception $e) {
-            throw new GooglePubSubException(
+            throw new PubSubException(
                 "Failed to publish message: {$e->getMessage()}",
                 $e->getCode(),
                 $e
@@ -150,7 +150,7 @@ class GooglePubSubQueue extends Queue implements QueueContract
             ]);
         }
 
-        return new GooglePubSubJob(
+        return new PubSubJob(
             $this->container,
             $this,
             $message,
@@ -163,7 +163,7 @@ class GooglePubSubQueue extends Queue implements QueueContract
     /**
      * Delete a message from the Pub/Sub queue.
      */
-    public function deleteMessage(string $queue, GooglePubSubJob $job): void
+    public function deleteMessage(string $queue, PubSubJob $job): void
     {
         $job->delete();
     }

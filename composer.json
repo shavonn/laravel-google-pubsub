@@ -1,6 +1,6 @@
 {
-  "name": "shavonn/laravel-google-pubsub-queue",
-  "description": "Google Cloud Pub/Sub queue driver for Laravel with full feature support",
+  "name": "shavonn/laravel-google-pubsub",
+  "description": "Google Cloud Pub/Sub for Laravel with full feature support",
   "keywords": [
     "laravel",
     "queue",
@@ -9,7 +9,7 @@
     "cloud",
     "gcp"
   ],
-  "homepage": "https://github.com/shavonn/laravel-google-pubsub-queue",
+  "homepage": "https://github.com/shavonn/laravel-google-pubsub",
   "license": "MIT",
   "authors": [
     {

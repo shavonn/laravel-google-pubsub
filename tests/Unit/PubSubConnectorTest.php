@@ -1,10 +1,10 @@
 <?php
 
-use Shavonn\GooglePubSub\Exceptions\GooglePubSubException;
-use Shavonn\GooglePubSub\Queue\GooglePubSubConnector;
+use Shavonn\GooglePubSub\Exceptions\PubSubException;
+use Shavonn\GooglePubSub\Queue\PubSubConnector;
 
 it('throws exception when project id is missing', function () {
-    $connector = new GooglePubSubConnector();
+    $connector = new PubSubConnector();
 
     $config = [
         'driver' => 'pubsub',
@@ -12,14 +12,14 @@ it('throws exception when project id is missing', function () {
     ];
 
     // Clear the config value to ensure it's not set
-    config(['pubsub-queue.project_id' => null]);
+    config(['pubsub.project_id' => null]);
 
     expect(fn () => $connector->connect($config))
-        ->toThrow(GooglePubSubException::class, 'Google Cloud project ID is required');
+        ->toThrow(PubSubException::class, 'Google Cloud project ID is required');
 });
 
 it('throws exception when key file is missing for key_file auth', function () {
-    $connector = new GooglePubSubConnector();
+    $connector = new PubSubConnector();
 
     $config = [
         'driver' => 'pubsub',
@@ -29,11 +29,11 @@ it('throws exception when key file is missing for key_file auth', function () {
     ];
 
     expect(fn () => $connector->connect($config))
-        ->toThrow(GooglePubSubException::class, 'Key file path is required when using key_file auth method');
+        ->toThrow(PubSubException::class, 'Key file path is required when using key_file auth method');
 });
 
 it('throws exception when key file does not exist', function () {
-    $connector = new GooglePubSubConnector();
+    $connector = new PubSubConnector();
 
     $config = [
         'driver' => 'pubsub',
@@ -44,5 +44,5 @@ it('throws exception when key file does not exist', function () {
     ];
 
     expect(fn () => $connector->connect($config))
-        ->toThrow(GooglePubSubException::class, 'Key file not found: /non/existent/file.json');
+        ->toThrow(PubSubException::class, 'Key file not found: /non/existent/file.json');
 });

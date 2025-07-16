@@ -4,8 +4,8 @@ namespace Shavonn\GooglePubSub;
 
 use Illuminate\Queue\QueueManager;
 use Illuminate\Support\ServiceProvider;
-use Shavonn\GooglePubSub\Failed\GooglePubSubFailedJobProvider;
-use Shavonn\GooglePubSub\Queue\GooglePubSubConnector;
+use Shavonn\GooglePubSub\Failed\PubSubFailedJobProvider;
+use Shavonn\GooglePubSub\Queue\PubSubConnector;
 
 class GooglePubSubServiceProvider extends ServiceProvider
 {
@@ -17,8 +17,8 @@ class GooglePubSubServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             // Publish config
             $this->publishes([
-                __DIR__.'/../config/pubsub-queue.php' => config_path('pubsub-queue.php'),
-            ], 'google-pubsub-queue-config');
+                __DIR__.'/../config/pubsub.php' => config_path('pubsub.php'),
+            ], 'google-pubsub-config');
         }
     }
 
@@ -27,7 +27,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/pubsub-queue.php', 'pubsub-queue');
+        $this->mergeConfigFrom(__DIR__.'/../config/pubsub.php', 'pubsub');
         $this->registerPubSubConnector();
         $this->registerFailedJobProvider();
     }
@@ -39,7 +39,7 @@ class GooglePubSubServiceProvider extends ServiceProvider
     {
         $this->app->resolving('queue', function (QueueManager $manager) {
             $manager->extend('pubsub', function () {
-                return new GooglePubSubConnector();
+                return new PubSubConnector();
             });
         });
     }
@@ -50,8 +50,8 @@ class GooglePubSubServiceProvider extends ServiceProvider
     protected function registerFailedJobProvider(): void
     {
         $this->app->singleton('queue.failed.pubsub', function ($app) {
-            return new GooglePubSubFailedJobProvider(
-                $app['config']['pubsub-queue']
+            return new PubSubFailedJobProvider(
+                $app['config']['pubsub']
             );
         });
     }

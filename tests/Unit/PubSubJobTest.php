@@ -3,12 +3,12 @@
 use Google\Cloud\PubSub\Message;
 use Google\Cloud\PubSub\Subscription;
 use Illuminate\Container\Container;
-use Shavonn\GooglePubSub\Queue\GooglePubSubQueue;
-use Shavonn\GooglePubSub\Queue\Jobs\GooglePubSubJob;
+use Shavonn\GooglePubSub\Queue\Jobs\PubSubJob;
+use Shavonn\GooglePubSub\Queue\PubSubQueue;
 
 beforeEach(function () {
     $this->container = Mockery::mock(Container::class);
-    $this->pubsubQueue = Mockery::mock(GooglePubSubQueue::class);
+    $this->pubsubQueue = Mockery::mock(PubSubQueue::class);
     $this->message = Mockery::mock(Message::class);
     $this->subscription = Mockery::mock(Subscription::class);
 });
@@ -16,7 +16,7 @@ beforeEach(function () {
 it('can get job id from message', function () {
     $this->message->shouldReceive('id')->andReturn('msg-123');
 
-    $job = new GooglePubSubJob(
+    $job = new PubSubJob(
         $this->container,
         $this->pubsubQueue,
         $this->message,
@@ -35,7 +35,7 @@ it('can get raw body and decompress if needed', function () {
     $this->message->shouldReceive('data')->andReturn($compressedData);
     $this->message->shouldReceive('attributes')->andReturn(['compressed' => 'true']);
 
-    $job = new GooglePubSubJob(
+    $job = new PubSubJob(
         $this->container,
         $this->pubsubQueue,
         $this->message,
@@ -53,7 +53,7 @@ it('acknowledges message when deleted', function () {
         ->with($this->message)
         ->once();
 
-    $job = new GooglePubSubJob(
+    $job = new PubSubJob(
         $this->container,
         $this->pubsubQueue,
         $this->message,
@@ -71,7 +71,7 @@ it('modifies ack deadline when released', function () {
         ->with($this->message, 60)
         ->once();
 
-    $job = new GooglePubSubJob(
+    $job = new PubSubJob(
         $this->container,
         $this->pubsubQueue,
         $this->message,
@@ -91,7 +91,7 @@ it('can get message attributes', function () {
 
     $this->message->shouldReceive('attributes')->andReturn($attributes);
 
-    $job = new GooglePubSubJob(
+    $job = new PubSubJob(
         $this->container,
         $this->pubsubQueue,
         $this->message,
@@ -107,7 +107,7 @@ it('can get publish time', function () {
     $publishTime = '2024-01-15T10:30:00Z';
     $this->message->shouldReceive('publishTime')->andReturn($publishTime);
 
-    $job = new GooglePubSubJob(
+    $job = new PubSubJob(
         $this->container,
         $this->pubsubQueue,
         $this->message,
@@ -119,13 +119,13 @@ it('can get publish time', function () {
     $result = $job->getPublishTime();
 
     expect($result)->toBeString()
-        ->and((new DateTime($result))->format('Y-m-d\TH:i:s\Z'))->toBe($publishTime);
+        ->and(new DateTime($result)->format('Y-m-d\TH:i:s\Z'))->toBe($publishTime);
 });
 
 it('handles ordering key', function () {
     $this->message->shouldReceive('orderingKey')->andReturn('order-123');
 
-    $job = new GooglePubSubJob(
+    $job = new PubSubJob(
         $this->container,
         $this->pubsubQueue,
         $this->message,

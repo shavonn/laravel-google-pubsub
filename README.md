@@ -1,9 +1,9 @@
 # Laravel Google Pub/Sub Connector and Queue Support
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/shavonn/laravel-google-pubsub-queue.svg?style=flat-square)](https://packagist.org/packages/shavonn/laravel-google-pubsub-queue)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/shavonn/laravel-google-pubsub-queue/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/shavonn/laravel-google-pubsub-queue/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/shavonn/laravel-google-pubsub-queue/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/shavonn/laravel-google-pubsub-queue/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/shavonn/laravel-google-pubsub-queue.svg?style=flat-square)](https://packagist.org/packages/shavonn/laravel-google-pubsub-queue)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/shavonn/laravel-google-pubsub.svg?style=flat-square)](https://packagist.org/packages/shavonn/laravel-google-pubsub)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/shavonn/laravel-google-pubsub/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/shavonn/laravel-google-pubsub/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/shavonn/laravel-google-pubsub/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/shavonn/laravel-google-pubsub/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/shavonn/laravel-google-pubsub.svg?style=flat-square)](https://packagist.org/packages/shavonn/laravel-google-pubsub)
 
 A full-featured Google Cloud Pub/Sub queue driver for Laravel that seamlessly integrates with Laravel's queue system
 while exposing Pub/Sub's advanced features.
@@ -30,13 +30,13 @@ while exposing Pub/Sub's advanced features.
 ## Installation
 
 ```bash
-composer require shavonn/laravel-google-pubsub-queue
+composer require shavonn/laravel-google-pubsub
 ```
 
 ### Publish Configuration
 
 ```bash
-php artisan vendor:publish --tag=google-pubsub-queue-config
+php artisan vendor:publish --tag=google-pubsub-config
 ```
 
 ## Configuration
@@ -273,7 +273,7 @@ composer test
 
 ## Advanced Configuration
 
-See `config/pubsub-queue.php` for all available options:
+See `config/pubsub.php` for all available options:
 
 - Retry policies
 - Dead letter configuration

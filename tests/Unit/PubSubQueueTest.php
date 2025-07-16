@@ -4,8 +4,8 @@ use Google\Cloud\PubSub\Message;
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Subscription;
 use Google\Cloud\PubSub\Topic;
-use Shavonn\GooglePubSub\Queue\GooglePubSubQueue;
-use Shavonn\GooglePubSub\Queue\Jobs\GooglePubSubJob;
+use Shavonn\GooglePubSub\Queue\Jobs\PubSubJob;
+use Shavonn\GooglePubSub\Queue\PubSubQueue;
 
 beforeEach(function () {
     $this->pubsub = Mockery::mock(PubSubClient::class);
@@ -27,7 +27,7 @@ it('can push a job to the queue', function () {
     $this->topic->shouldReceive('publish')->andReturn(['messageIds' => ['123']]);
     $this->topic->shouldReceive('name')->andReturn('projects/test/topics/default');
 
-    $queue = new GooglePubSubQueue($this->pubsub, 'default', [
+    $queue = new PubSubQueue($this->pubsub, 'default', [
         'monitoring' => ['log_published_messages' => false],
     ]);
 
@@ -46,7 +46,7 @@ it('creates topic if not exists when auto create is enabled', function () {
     $this->topic->shouldReceive('publish')->andReturn(['messageIds' => ['456']]);
     $this->topic->shouldReceive('name')->andReturn('projects/test/topics/new-queue');
 
-    $queue = new GooglePubSubQueue($this->pubsub, 'default', [
+    $queue = new PubSubQueue($this->pubsub, 'default', [
         'auto_create_topics' => true,
         'monitoring' => ['log_published_messages' => false],
     ]);
@@ -72,7 +72,7 @@ it('can pop a job from the queue', function () {
     ]));
     $this->message->shouldReceive('attributes')->andReturn([]);
 
-    $queue = new GooglePubSubQueue($this->pubsub, 'default', [
+    $queue = new PubSubQueue($this->pubsub, 'default', [
         'subscription_suffix' => '-laravel',
         'monitoring' => ['log_consumed_messages' => false],
     ]);
@@ -82,7 +82,7 @@ it('can pop a job from the queue', function () {
 
     $job = $queue->pop();
 
-    expect($job)->toBeInstanceOf(GooglePubSubJob::class)
+    expect($job)->toBeInstanceOf(PubSubJob::class)
         ->and($job->getJobId())->toBe('msg-123');
 });
 
@@ -94,7 +94,7 @@ it('returns null when no messages available', function () {
     $this->subscription->shouldReceive('exists')->andReturn(true);
     $this->subscription->shouldReceive('pull')->andReturn([]);
 
-    $queue = new GooglePubSubQueue($this->pubsub, 'default', [
+    $queue = new PubSubQueue($this->pubsub, 'default', [
         'subscription_suffix' => '-laravel',
     ]);
 
@@ -121,7 +121,7 @@ it('compresses large payloads when enabled', function () {
         })
         ->andReturn(['messageIds' => ['789']]);
 
-    $queue = new GooglePubSubQueue($this->pubsub, 'default', [
+    $queue = new PubSubQueue($this->pubsub, 'default', [
         'message_options' => [
             'compress_payload' => true,
             'compression_threshold' => 1024,
@@ -149,7 +149,7 @@ it('handles message ordering when enabled', function () {
         })
         ->andReturn(['messageIds' => ['ordered-123']]);
 
-    $queue = new GooglePubSubQueue($this->pubsub, 'default', [
+    $queue = new PubSubQueue($this->pubsub, 'default', [
         'enable_message_ordering' => true,
         'monitoring' => ['log_published_messages' => false],
     ]);

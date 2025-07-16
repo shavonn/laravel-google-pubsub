@@ -3,7 +3,7 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Google Pub/Sub Queue Configuration
+    | Google Pub/Sub Configuration
     |--------------------------------------------------------------------------
     |
     | Configure your Google Pub/Sub settings for queue operations.
