@@ -35,7 +35,7 @@ Enable CloudEvents formatting in `config/pubsub.php`:
 
 Set your CloudEvents source:
 
-```env
+```dotenv
 PUBSUB_CLOUDEVENTS_SOURCE=https://myapp.com
 ```
 

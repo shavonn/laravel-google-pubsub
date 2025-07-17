@@ -40,7 +40,7 @@ In `config/pubsub.php`:
 
 ### 2. Set Environment Variables
 
-```env
+```dotenv
 PUBSUB_WEBHOOK_ENABLED=true
 PUBSUB_WEBHOOK_PREFIX=pubsub/webhook
 PUBSUB_WEBHOOK_TOKEN=your-secret-token-here

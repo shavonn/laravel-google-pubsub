@@ -31,7 +31,7 @@ This will create `config/pubsub.php` with all available options.
 
 Add the following to your `.env` file:
 
-```env
+```dotenv
 # Basic Configuration
 QUEUE_CONNECTION=pubsub
 GOOGLE_CLOUD_PROJECT_ID=your-project-id
@@ -84,7 +84,7 @@ Add the Pub/Sub connection to `config/queue.php`:
     - `Pub/Sub Admin` (if auto-creating topics/subscriptions)
 
 4. Set the path in your environment:
-   ```env
+   ```dotenv
    PUBSUB_AUTH_METHOD=key_file
    GOOGLE_APPLICATION_CREDENTIALS=/secure/path/to/service-account.json
    ```
@@ -93,7 +93,7 @@ Add the Pub/Sub connection to `config/queue.php`:
 
 For Google Cloud environments (GKE, Cloud Run, App Engine):
 
-```env
+```dotenv
 PUBSUB_AUTH_METHOD=application_default
 ```
 
@@ -110,7 +110,7 @@ For local development without real Google Cloud resources, this package fully su
    ```
 
 2. **Automatic Detection**: Set the emulator host for expected automatic detection:
-   ```env
+   ```dotenv
    PUBSUB_EMULATOR_HOST=localhost:8085
    ```
 
@@ -149,6 +149,6 @@ If everything is configured correctly, you should see a list of topics (or an em
 ## Next Steps
 
 - [More comprehensive configuration](configuration.md)
-- [Set up your queues](queue-driver.md)
-- [Enable event integration](event-integration.md)
-- [Explore publisher/subscriber features](direct-pubsub.md)
+- [Set up your queues](../queue-driver.md)
+- [Enable event integration](../event-integration.md)
+- [Explore publisher/subscriber features](../direct-pubsub.md)

@@ -240,7 +240,7 @@ Failed messages are automatically moved to dead letter topics after max attempts
 
 ### Performance Tuning
 
-```env
+```dotenv
 # Worker settings
 PUBSUB_MAX_MESSAGES=50          # Messages per pull
 PUBSUB_ACK_DEADLINE=60          # Seconds before retry

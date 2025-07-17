@@ -26,7 +26,7 @@ php artisan vendor:publish --provider="Shavonn\GooglePubSub\PubSubServiceProvide
 
 **Environment Variables:**
 
-```env
+```dotenv
 GOOGLE_CLOUD_PROJECT_ID=your-project-id
 PUBSUB_AUTH_METHOD=key_file
 GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
@@ -55,7 +55,7 @@ Control automatic creation of topics and subscriptions:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_AUTO_CREATE_TOPICS=true
 PUBSUB_AUTO_CREATE_SUBSCRIPTIONS=true
 PUBSUB_AUTO_ACKNOWLEDGE=true
@@ -81,7 +81,7 @@ Configure default subscription behavior:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_SUBSCRIPTION_SUFFIX=-laravel
 PUBSUB_ACK_DEADLINE=60
 PUBSUB_MAX_MESSAGES=10
@@ -108,7 +108,7 @@ Configure message retry behavior:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_MIN_BACKOFF=10
 PUBSUB_MAX_BACKOFF=600
 ```
@@ -134,7 +134,7 @@ Configure dead letter topic handling:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_DEAD_LETTER_ENABLED=true
 PUBSUB_MAX_DELIVERY_ATTEMPTS=5
 PUBSUB_DEAD_LETTER_SUFFIX=-dead-letter
@@ -160,7 +160,7 @@ Configure message formatting and compression:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_ADD_METADATA=true
 PUBSUB_COMPRESS_PAYLOAD=true
 PUBSUB_COMPRESSION_THRESHOLD=1024
@@ -220,7 +220,7 @@ Define JSON schemas for message validation:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_SCHEMA_VALIDATION=true
 PUBSUB_SCHEMA_STRICT=true
 ```
@@ -254,7 +254,7 @@ Configure message formatting:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_CLOUDEVENTS_SOURCE=https://myapp.com
 ```
 
@@ -320,7 +320,7 @@ Configure Laravel event integration:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_EVENTS_ENABLED=true
 ```
 
@@ -359,7 +359,7 @@ Configure webhook endpoints for push subscriptions:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_WEBHOOK_ENABLED=true
 PUBSUB_WEBHOOK_PREFIX=pubsub/webhook
 PUBSUB_WEBHOOK_TOKEN=your-secret-token
@@ -388,7 +388,7 @@ Configure logging and monitoring:
 
 **Environment Variables:**
 
-```env
+```dotenv
 PUBSUB_LOG_PUBLISHED=false
 PUBSUB_LOG_CONSUMED=false
 PUBSUB_LOG_FAILED=true
@@ -478,7 +478,7 @@ Automatically handles:
 
 ### Development
 
-```env
+```dotenv
 # Use emulator for local development
 PUBSUB_EMULATOR_HOST=localhost:8085
 PUBSUB_AUTO_CREATE_TOPICS=true
@@ -490,7 +490,7 @@ PUBSUB_WEBHOOK_SKIP_VERIFICATION=true
 
 ### Production
 
-```env
+```dotenv
 # Use real Google Cloud Pub/Sub
 PUBSUB_AUTH_METHOD=application_default
 PUBSUB_AUTO_CREATE_TOPICS=false
@@ -503,7 +503,7 @@ PUBSUB_WEBHOOK_SKIP_VERIFICATION=false
 
 ### Testing
 
-```env
+```dotenv
 # Use emulator for testing
 PUBSUB_EMULATOR_HOST=localhost:8085
 PUBSUB_AUTO_CREATE_TOPICS=true
