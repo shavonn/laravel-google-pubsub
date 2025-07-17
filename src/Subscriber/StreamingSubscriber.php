@@ -6,13 +6,15 @@ namespace Shavonn\GooglePubSub\Subscriber;
 
 use Exception;
 use Google\Cloud\PubSub\Message;
-use Illuminate\Support\Facades\Log;
 use Shavonn\GooglePubSub\Exceptions\SubscriptionException;
+use Illuminate\Support\Facades\Log;
 
 class StreamingSubscriber extends Subscriber
 {
     /**
      * Use streaming pull to continuously receive messages.
+     *
+     * @param array $options
      */
     public function stream(array $options = []): void
     {
@@ -21,7 +23,7 @@ class StreamingSubscriber extends Subscriber
 
             $pullOptions = [
                 'returnImmediately' => false,
-                'maxMessages' => $options['max_messages_per_pull'] ?? 100,
+                'maxMessages' => $options['max_messages_per_pull'] ?? $this->config['max_messages_per_pull'] ?? 100,
             ];
 
             Log::info("Started streaming pull on subscription: {$this->subscriptionName}");
@@ -30,7 +32,7 @@ class StreamingSubscriber extends Subscriber
                 // Pull messages
                 $messages = $subscription->pull($pullOptions);
 
-                if (! empty($messages)) {
+                if (!empty($messages)) {
                     foreach ($messages as $message) {
                         try {
                             $this->processStreamMessage($message, $subscription);

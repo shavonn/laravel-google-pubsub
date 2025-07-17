@@ -138,7 +138,13 @@ class SchemaValidator
             }
 
             $content = file_get_contents($path);
-            return json_decode($content);
+            $decoded = json_decode($content);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new SchemaValidationException("Invalid JSON in schema file: " . json_last_error_msg());
+            }
+
+            return $decoded;
         }
 
         // Load from array
@@ -149,7 +155,13 @@ class SchemaValidator
         // Load from URL
         if (isset($config['url'])) {
             $content = file_get_contents($config['url']);
-            return json_decode($content);
+            $decoded = json_decode($content);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new SchemaValidationException("Invalid JSON from URL: " . json_last_error_msg());
+            }
+
+            return $decoded;
         }
 
         throw new SchemaValidationException('Schema configuration must include file, schema, or url');
