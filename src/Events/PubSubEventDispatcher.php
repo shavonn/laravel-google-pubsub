@@ -81,7 +81,10 @@ class PubSubEventDispatcher
             $this->dispatching[] = $eventName;
             $this->publishEvent($eventName, $event);
         } finally {
-            $this->dispatching = array_diff($this->dispatching, [$eventName]);
+            $key = array_search($eventName, $this->dispatching);
+            if ($key !== false) {
+                unset($this->dispatching[$key]);
+            }
         }
     }
 

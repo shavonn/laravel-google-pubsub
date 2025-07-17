@@ -150,7 +150,11 @@ class PubSubEventSubscriber
                 ]);
             } catch (Exception $e) {
                 // Fall back to generic event
-                $this->dispatchGenericEvent($data, $message, 'unknown');
+                $this->events->dispatch("pubsub.unknown.{$eventClass}", [
+                    'data' => $eventData,
+                    'message' => $message,
+                    'topic' => 'unknown',
+                ]);
             }
         } else {
             // Dispatch as a generic event with the original class name
