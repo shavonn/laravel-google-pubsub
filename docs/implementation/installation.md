@@ -12,7 +12,7 @@
 Install the package via Composer:
 
 ```bash
-composer require shavonn/laravel-google-pubsub
+composer require sysmatter/laravel-google-pubsub
 ```
 
 ## Configuration
@@ -22,7 +22,7 @@ See [Configuration](configuration.md) for full config coverage.
 ### 1. Publish the Configuration File
 
 ```bash
-php artisan vendor:publish --provider="Shavonn\GooglePubSub\PubSubServiceProvider" --tag="config"
+php artisan vendor:publish --provider="SysMatter\GooglePubSub\PubSubServiceProvider" --tag="config"
 ```
 
 This will create `config/pubsub.php` with all available options.

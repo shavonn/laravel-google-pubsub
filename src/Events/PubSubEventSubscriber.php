@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Events;
+namespace SysMatter\GooglePubSub\Events;
 
 use Exception;
 use Google\Cloud\PubSub\Message;
 use Illuminate\Contracts\Events\Dispatcher;
 use ReflectionClass;
-use Shavonn\GooglePubSub\PubSubManager;
-use Shavonn\GooglePubSub\Messages\WebhookMessage;
+use SysMatter\GooglePubSub\PubSubManager;
+use SysMatter\GooglePubSub\Messages\WebhookMessage;
 use Illuminate\Support\Facades\Log;
 
 class PubSubEventSubscriber

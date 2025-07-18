@@ -65,8 +65,8 @@ class OrderService
 namespace App\Events;
 
 use App\Models\Order;
-use Shavonn\GooglePubSub\Attributes\PublishTo;
-use Shavonn\GooglePubSub\Contracts\ShouldPublishToPubSub;
+use SysMatter\GooglePubSub\Attributes\PublishTo;
+use SysMatter\GooglePubSub\Contracts\ShouldPublishToPubSub;
 
 #[PublishTo('orders')]
 class OrderCreated implements ShouldPublishToPubSub
@@ -331,7 +331,7 @@ Track user behavior and process analytics in real-time.
 // app/Services/AnalyticsService.php
 namespace App\Services;
 
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 use Illuminate\Support\Facades\Auth;
 
 class AnalyticsService
@@ -418,7 +418,7 @@ class TrackAnalytics
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 use App\Services\AnalyticsProcessor;
 
 class ProcessAnalytics extends Command
@@ -569,7 +569,7 @@ Example of how different microservices communicate through Pub/Sub.
 namespace App\Services;
 
 use App\Models\User;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class UserService
 {
@@ -862,7 +862,7 @@ Implement event sourcing using Pub/Sub for audit trails and state reconstruction
 namespace App\Services;
 
 use App\Models\Event;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 use Illuminate\Support\Facades\DB;
 
 class EventStore

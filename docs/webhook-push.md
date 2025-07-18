@@ -32,7 +32,7 @@ In `config/pubsub.php`:
     
     // Custom middleware
     'middleware' => [
-        \Shavonn\GooglePubSub\Http\Middleware\VerifyPubSubWebhook::class,
+        \SysMatter\GooglePubSub\Http\Middleware\VerifyPubSubWebhook::class,
         'throttle:1000,1', // Rate limiting
     ],
 ],
@@ -69,7 +69,7 @@ php artisan pubsub:subscriptions:create-push orders-webhook orders https://myapp
 ### Programmatically
 
 ```php
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 PubSub::createSubscription('orders-webhook', 'orders', [
     'pushConfig' => [
@@ -277,7 +277,7 @@ Add additional security or processing:
 // config/pubsub.php
 'webhook' => [
     'middleware' => [
-        \Shavonn\GooglePubSub\Http\Middleware\VerifyPubSubWebhook::class,
+        \SysMatter\GooglePubSub\Http\Middleware\VerifyPubSubWebhook::class,
         'throttle:1000,1',
         \App\Http\Middleware\LogWebhookRequests::class,
         \App\Http\Middleware\ValidateWebhookPayload::class,

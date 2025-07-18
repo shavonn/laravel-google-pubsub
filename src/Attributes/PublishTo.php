@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Attributes;
+namespace SysMatter\GooglePubSub\Attributes;
 
 use Attribute;
 

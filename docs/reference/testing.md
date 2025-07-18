@@ -36,7 +36,7 @@ export PUBSUB_EMULATOR_HOST=localhost:8085
 namespace Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Shavonn\GooglePubSub\PubSubServiceProvider;
+use SysMatter\GooglePubSub\PubSubServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -141,7 +141,7 @@ class ProcessOrderJobTest extends TestCase
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class PublisherTest extends TestCase
 {
@@ -198,7 +198,7 @@ class PublisherTest extends TestCase
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class SubscriberTest extends TestCase
 {
@@ -271,8 +271,8 @@ namespace Tests\Integration;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
-use Shavonn\GooglePubSub\Facades\PubSub;
-use Shavonn\GooglePubSub\Contracts\ShouldPublishToPubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Contracts\ShouldPublishToPubSub;
 
 class OrderCreatedEvent implements ShouldPublishToPubSub
 {
@@ -515,7 +515,7 @@ namespace Tests\Unit\Services;
 use Tests\TestCase;
 use App\Services\OrderService;
 use App\Services\PaymentService;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class OrderServiceTest extends TestCase
 {
@@ -551,8 +551,8 @@ class OrderServiceTest extends TestCase
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Shavonn\GooglePubSub\Schema\SchemaValidator;
-use Shavonn\GooglePubSub\Exceptions\SchemaValidationException;
+use SysMatter\GooglePubSub\Schema\SchemaValidator;
+use SysMatter\GooglePubSub\Exceptions\SchemaValidationException;
 
 class SchemaValidationTest extends TestCase
 {
@@ -593,8 +593,8 @@ class SchemaValidationTest extends TestCase
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Shavonn\GooglePubSub\Facades\PubSub;
-use Shavonn\GooglePubSub\Exceptions\PublishException;
+use SysMatter\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Exceptions\PublishException;
 
 class ErrorHandlingTest extends TestCase
 {
@@ -687,7 +687,7 @@ jobs:
 namespace Tests\Performance;
 
 use Tests\TestCase;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class LoadTest extends TestCase
 {
@@ -769,7 +769,7 @@ TEST_DEBUG=true vendor/bin/phpunit --verbose
 // tests/Utilities/PubSubTestHelpers.php
 namespace Tests\Utilities;
 
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 trait PubSubTestHelpers
 {

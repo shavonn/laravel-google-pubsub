@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Failed;
+namespace SysMatter\GooglePubSub\Failed;
 
 use Exception;
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Topic;
 use Illuminate\Queue\Failed\FailedJobProviderInterface;
 use Illuminate\Support\Facades\Date;
-use Shavonn\GooglePubSub\Exceptions\PubSubException;
+use SysMatter\GooglePubSub\Exceptions\PubSubException;
 use Throwable;
 
 class PubSubFailedJobProvider implements FailedJobProviderInterface

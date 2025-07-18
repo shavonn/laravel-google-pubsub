@@ -3,7 +3,7 @@
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Subscription;
 use Google\Cloud\PubSub\Message;
-use Shavonn\GooglePubSub\Subscriber\StreamingSubscriber;
+use SysMatter\GooglePubSub\Subscriber\StreamingSubscriber;
 
 beforeEach(function () {
     $this->client = Mockery::mock(PubSubClient::class);

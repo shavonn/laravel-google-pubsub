@@ -264,7 +264,7 @@ class ExportPubSubMetrics extends Command
 // app/Http/Controllers/HealthController.php
 namespace App\Http\Controllers;
 
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 use Illuminate\Support\Facades\Cache;
 
 class HealthController extends Controller
@@ -328,7 +328,7 @@ class HealthController extends Controller
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class MonitorSubscriptions extends Command
 {
@@ -396,7 +396,7 @@ class MonitorSubscriptions extends Command
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class InspectMessage extends Command
 {
@@ -451,7 +451,7 @@ class InspectMessage extends Command
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class InspectDeadLetters extends Command
 {
@@ -552,7 +552,7 @@ dump([
 Monitor and adjust acknowledgment deadlines:
 
 ```php
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 // Monitor processing time
 $subscriber = PubSub::subscribe('orders-laravel');

@@ -42,7 +42,7 @@ Enable event integration in `config/pubsub.php`:
 ### Method 1: Using Interface
 
 ```php
-use Shavonn\GooglePubSub\Contracts\ShouldPublishToPubSub;
+use SysMatter\GooglePubSub\Contracts\ShouldPublishToPubSub;
 
 class OrderPlaced implements ShouldPublishToPubSub
 {
@@ -72,7 +72,7 @@ class OrderPlaced implements ShouldPublishToPubSub
 ### Method 2: Using Attributes
 
 ```php
-use Shavonn\GooglePubSub\Attributes\PublishTo;
+use SysMatter\GooglePubSub\Attributes\PublishTo;
 
 #[PublishTo('orders')]
 class OrderShipped

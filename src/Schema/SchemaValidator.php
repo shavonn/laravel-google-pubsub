@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Schema;
+namespace SysMatter\GooglePubSub\Schema;
 
-use Shavonn\GooglePubSub\Exceptions\SchemaValidationException;
+use SysMatter\GooglePubSub\Exceptions\SchemaValidationException;
 use Opis\JsonSchema\Validator;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 

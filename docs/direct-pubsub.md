@@ -10,7 +10,7 @@ injection, and batch support for high-performance scenarios.
 ### Basic Publishing
 
 ```php
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 // Simple message
 PubSub::publish('events', ['event' => 'user.registered', 'user_id' => 123]);
@@ -125,7 +125,7 @@ $subscriber->stream(); // Continuous streaming with instant delivery
 ### Basic Subscription
 
 ```php
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 // Create a subscriber
 $subscriber = PubSub::subscribe('events-processor', 'events');
@@ -283,7 +283,7 @@ php artisan pubsub:subscriptions:create orders-processor orders \
 ### Programmatically
 
 ```php
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 // Basic subscription
 PubSub::createSubscription('my-subscription', 'my-topic');

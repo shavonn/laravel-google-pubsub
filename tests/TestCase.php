@@ -1,9 +1,9 @@
 <?php
 
-namespace Shavonn\GooglePubSub\Tests;
+namespace SysMatter\GooglePubSub\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Shavonn\GooglePubSub\PubSubServiceProvider;
+use SysMatter\GooglePubSub\PubSubServiceProvider;
 
 abstract class TestCase extends Orchestra
 {

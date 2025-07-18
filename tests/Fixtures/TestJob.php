@@ -1,6 +1,6 @@
 <?php
 
-namespace Shavonn\GooglePubSub\Tests\Fixtures;
+namespace SysMatter\GooglePubSub\Tests\Fixtures;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

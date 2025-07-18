@@ -114,7 +114,7 @@ class ProcessOrder implements ShouldQueue
         return [
             function ($job, $next) {
                 // Set ordering key
-                if ($job->job instanceof \Shavonn\GooglePubSub\Queue\Jobs\PubSubJob) {
+                if ($job->job instanceof \SysMatter\GooglePubSub\Queue\Jobs\PubSubJob) {
                     $job->pubsubOptions = [
                         'ordering_key' => 'customer-' . $this->order->customer_id
                     ];
@@ -153,7 +153,7 @@ class ProcessOrder implements ShouldQueue
     public function handle()
     {
         // Check if this is a Pub/Sub job
-        if ($this->job instanceof \Shavonn\GooglePubSub\Queue\Jobs\PubSubJob) {
+        if ($this->job instanceof \SysMatter\GooglePubSub\Queue\Jobs\PubSubJob) {
             // Get message attributes
             $attributes = $this->job->getMessageAttributes();
             $priority = $attributes['priority'] ?? 'normal';

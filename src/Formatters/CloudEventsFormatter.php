@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Formatters;
+namespace SysMatter\GooglePubSub\Formatters;
 
-use Shavonn\GooglePubSub\Contracts\MessageFormatter;
-use Shavonn\GooglePubSub\Exceptions\MessageFormatException;
+use SysMatter\GooglePubSub\Contracts\MessageFormatter;
+use SysMatter\GooglePubSub\Exceptions\MessageFormatException;
 use Illuminate\Support\Str;
 
 class CloudEventsFormatter implements MessageFormatter

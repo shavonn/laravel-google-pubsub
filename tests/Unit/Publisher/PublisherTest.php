@@ -2,9 +2,9 @@
 
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Topic;
-use Shavonn\GooglePubSub\Publisher\Publisher;
-use Shavonn\GooglePubSub\Exceptions\PublishException;
-use Shavonn\GooglePubSub\Schema\SchemaValidator;
+use SysMatter\GooglePubSub\Publisher\Publisher;
+use SysMatter\GooglePubSub\Exceptions\PublishException;
+use SysMatter\GooglePubSub\Schema\SchemaValidator;
 
 beforeEach(function () {
     $this->client = Mockery::mock(PubSubClient::class);

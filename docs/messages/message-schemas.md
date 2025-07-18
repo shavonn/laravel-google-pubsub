@@ -242,7 +242,7 @@ PubSub::publish('orders', [
 Use the schema validator directly:
 
 ```php
-use Shavonn\GooglePubSub\Schema\SchemaValidator;
+use SysMatter\GooglePubSub\Schema\SchemaValidator;
 
 $validator = app(SchemaValidator::class);
 
@@ -302,7 +302,7 @@ php artisan pubsub:schema:validate order_events '{"event_type":"invalid"}'
 
 Design schemas to be backward compatible:
 
-```json
+```json5
 {
   "properties": {
     "order_id": {
@@ -380,7 +380,7 @@ Include version in the message:
 Register schemas at runtime:
 
 ```php
-use Shavonn\GooglePubSub\Schema\SchemaValidator;
+use SysMatter\GooglePubSub\Schema\SchemaValidator;
 
 $validator = app(SchemaValidator::class);
 
@@ -454,10 +454,16 @@ Distribute schemas as a package:
 
 Begin with strict validation and relax as needed:
 
-```json
+```json5
 {
-  "additionalProperties": false,  // No extra properties allowed
-  "required": ["id", "type", "timestamp"] // All required initially
+  "additionalProperties": false,
+  // No extra properties allowed
+  "required": [
+    "id",
+    "type",
+    "timestamp"
+  ]
+  // All required initially
 }
 ```
 
@@ -472,16 +478,28 @@ Begin with strict validation and relax as needed:
     },
     "money": {
       "type": "object",
-      "required": ["amount", "currency"],
+      "required": [
+        "amount",
+        "currency"
+      ],
       "properties": {
-        "amount": {"type": "number"},
-        "currency": {"type": "string", "pattern": "^[A-Z]{3}$"}
+        "amount": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        }
       }
     }
   },
   "properties": {
-    "created_at": {"$ref": "#/definitions/timestamp"},
-    "total": {"$ref": "#/definitions/money"}
+    "created_at": {
+      "$ref": "#/definitions/timestamp"
+    },
+    "total": {
+      "$ref": "#/definitions/money"
+    }
   }
 }
 ```
@@ -496,7 +514,10 @@ Begin with strict validation and relax as needed:
     "order_id": {
       "type": "integer",
       "description": "Unique order identifier",
-      "examples": [12345, 67890]
+      "examples": [
+        12345,
+        67890
+      ]
     }
   }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Queue;
-use Shavonn\GooglePubSub\Tests\Fixtures\TestJob;
+use SysMatter\GooglePubSub\Tests\Fixtures\TestJob;
 
 it('can be registered as a queue driver', function () {
     // Mock the queue manager to avoid actual connection attempts

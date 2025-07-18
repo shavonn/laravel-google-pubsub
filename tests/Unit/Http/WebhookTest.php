@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
-use Shavonn\GooglePubSub\Http\Controllers\PubSubWebhookController;
-use Shavonn\GooglePubSub\Http\Middleware\VerifyPubSubWebhook;
-use Shavonn\GooglePubSub\Events\PubSubEventSubscriber;
+use SysMatter\GooglePubSub\Http\Controllers\PubSubWebhookController;
+use SysMatter\GooglePubSub\Http\Middleware\VerifyPubSubWebhook;
+use SysMatter\GooglePubSub\Events\PubSubEventSubscriber;
 
 describe('PubSubWebhookController', function () {
     beforeEach(function () {

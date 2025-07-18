@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Queue\Jobs;
+namespace SysMatter\GooglePubSub\Queue\Jobs;
 
 use DateTimeInterface;
 use Google\Cloud\PubSub\Message;
@@ -11,8 +11,8 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Jobs\Job;
 use Illuminate\Support\Arr;
-use Shavonn\GooglePubSub\Exceptions\MessageConversionException;
-use Shavonn\GooglePubSub\Queue\PubSubQueue;
+use SysMatter\GooglePubSub\Exceptions\MessageConversionException;
+use SysMatter\GooglePubSub\Queue\PubSubQueue;
 
 class PubSubJob extends Job implements JobContract
 {

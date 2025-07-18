@@ -4,8 +4,8 @@ use Google\Cloud\PubSub\Message;
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Subscription;
 use Google\Cloud\PubSub\Topic;
-use Shavonn\GooglePubSub\Queue\Jobs\PubSubJob;
-use Shavonn\GooglePubSub\Queue\PubSubQueue;
+use SysMatter\GooglePubSub\Queue\Jobs\PubSubJob;
+use SysMatter\GooglePubSub\Queue\PubSubQueue;
 
 beforeEach(function () {
     $this->pubsub = Mockery::mock(PubSubClient::class);

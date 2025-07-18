@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub;
+namespace SysMatter\GooglePubSub;
 
 use Google\Cloud\PubSub\PubSubClient;
 use Illuminate\Support\Manager;
-use Shavonn\GooglePubSub\Publisher\Publisher;
-use Shavonn\GooglePubSub\Subscriber\Subscriber;
-use Shavonn\GooglePubSub\Subscriber\StreamingSubscriber;
-use Shavonn\GooglePubSub\Exceptions\PubSubException;
+use SysMatter\GooglePubSub\Publisher\Publisher;
+use SysMatter\GooglePubSub\Subscriber\Subscriber;
+use SysMatter\GooglePubSub\Subscriber\StreamingSubscriber;
+use SysMatter\GooglePubSub\Exceptions\PubSubException;
 
 class PubSubManager extends Manager
 {

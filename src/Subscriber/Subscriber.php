@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Subscriber;
+namespace SysMatter\GooglePubSub\Subscriber;
 
 use Closure;
 use Exception;
@@ -10,9 +10,9 @@ use Google\Cloud\PubSub\Message;
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Subscription;
 use Illuminate\Support\Facades\Log;
-use Shavonn\GooglePubSub\Contracts\MessageFormatter;
-use Shavonn\GooglePubSub\Exceptions\SubscriptionException;
-use Shavonn\GooglePubSub\Formatters\JsonFormatter;
+use SysMatter\GooglePubSub\Contracts\MessageFormatter;
+use SysMatter\GooglePubSub\Exceptions\SubscriptionException;
+use SysMatter\GooglePubSub\Formatters\JsonFormatter;
 
 class Subscriber
 {

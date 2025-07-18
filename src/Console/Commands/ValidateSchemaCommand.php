@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Console\Commands;
+namespace SysMatter\GooglePubSub\Console\Commands;
 
 use Illuminate\Console\Command;
-use Shavonn\GooglePubSub\Schema\SchemaValidator;
+use SysMatter\GooglePubSub\Schema\SchemaValidator;
 
 class ValidateSchemaCommand extends Command
 {
