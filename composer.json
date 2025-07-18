@@ -1,5 +1,5 @@
 {
-  "name": "shavonn/laravel-google-pubsub",
+  "name": "sysmatter/laravel-google-pubsub",
   "description": "Google Cloud Pub/Sub for Laravel with full feature support",
   "keywords": [
     "laravel",
@@ -9,7 +9,7 @@
     "cloud",
     "gcp"
   ],
-  "homepage": "https://github.com/shavonn/laravel-google-pubsub",
+  "homepage": "https://github.com/sysmatter/laravel-google-pubsub",
   "license": "MIT",
   "authors": [
     {
@@ -38,12 +38,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Shavonn\\GooglePubSub\\": "src/"
+      "SysMatter\\GooglePubSub\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Shavonn\\GooglePubSub\\Tests\\": "tests/"
+      "SysMatter\\GooglePubSub\\Tests\\": "tests/"
     }
   },
   "scripts": {

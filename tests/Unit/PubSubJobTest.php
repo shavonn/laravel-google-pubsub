@@ -3,8 +3,8 @@
 use Google\Cloud\PubSub\Message;
 use Google\Cloud\PubSub\Subscription;
 use Illuminate\Container\Container;
-use Shavonn\GooglePubSub\Queue\Jobs\PubSubJob;
-use Shavonn\GooglePubSub\Queue\PubSubQueue;
+use SysMatter\GooglePubSub\Queue\Jobs\PubSubJob;
+use SysMatter\GooglePubSub\Queue\PubSubQueue;
 
 beforeEach(function () {
     $this->container = Mockery::mock(Container::class);

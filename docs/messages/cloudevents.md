@@ -44,7 +44,7 @@ PUBSUB_CLOUDEVENTS_SOURCE=https://myapp.com
 ### Publishing CloudEvents
 
 ```php
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 // Automatically formatted as CloudEvents
 PubSub::publish('orders', [
@@ -126,7 +126,7 @@ Results in:
 ```php
 namespace App\Events;
 
-use Shavonn\GooglePubSub\Contracts\ShouldPublishToPubSub;
+use SysMatter\GooglePubSub\Contracts\ShouldPublishToPubSub;
 
 class OrderShipped implements ShouldPublishToPubSub
 {
@@ -413,7 +413,7 @@ spec:
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Shavonn\GooglePubSub\Formatters\CloudEventsFormatter;
+use SysMatter\GooglePubSub\Formatters\CloudEventsFormatter;
 
 class CloudEventsTest extends TestCase
 {
@@ -469,7 +469,7 @@ class CloudEventsTest extends TestCase
 namespace Tests\Integration;
 
 use Tests\TestCase;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class CloudEventsIntegrationTest extends TestCase
 {
@@ -518,7 +518,7 @@ class CloudEventsIntegrationTest extends TestCase
 // app/Formatters/CustomCloudEventsFormatter.php
 namespace App\Formatters;
 
-use Shavonn\GooglePubSub\Formatters\CloudEventsFormatter;
+use SysMatter\GooglePubSub\Formatters\CloudEventsFormatter;
 
 class CustomCloudEventsFormatter extends CloudEventsFormatter
 {

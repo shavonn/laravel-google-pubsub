@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub;
+namespace SysMatter\GooglePubSub;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Queue\QueueManager;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Route;
 use Override;
-use Shavonn\GooglePubSub\Queue\PubSubConnector;
-use Shavonn\GooglePubSub\Failed\PubSubFailedJobProvider;
-use Shavonn\GooglePubSub\Events\PubSubEventDispatcher;
-use Shavonn\GooglePubSub\Events\PubSubEventSubscriber;
-use Shavonn\GooglePubSub\Http\Controllers\PubSubWebhookController;
-use Shavonn\GooglePubSub\Http\Middleware\VerifyPubSubWebhook;
+use SysMatter\GooglePubSub\Queue\PubSubConnector;
+use SysMatter\GooglePubSub\Failed\PubSubFailedJobProvider;
+use SysMatter\GooglePubSub\Events\PubSubEventDispatcher;
+use SysMatter\GooglePubSub\Events\PubSubEventSubscriber;
+use SysMatter\GooglePubSub\Http\Controllers\PubSubWebhookController;
+use SysMatter\GooglePubSub\Http\Middleware\VerifyPubSubWebhook;
 
 class PubSubServiceProvider extends ServiceProvider
 {

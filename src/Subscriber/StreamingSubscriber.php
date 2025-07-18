@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Subscriber;
+namespace SysMatter\GooglePubSub\Subscriber;
 
 use Exception;
 use Google\Cloud\PubSub\Message;
-use Shavonn\GooglePubSub\Exceptions\SubscriptionException;
+use SysMatter\GooglePubSub\Exceptions\SubscriptionException;
 use Illuminate\Support\Facades\Log;
 
 class StreamingSubscriber extends Subscriber

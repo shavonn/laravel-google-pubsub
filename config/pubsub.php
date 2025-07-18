@@ -1,6 +1,6 @@
 <?php
 
-use Shavonn\GooglePubSub\Http\Middleware\VerifyPubSubWebhook;
+use SysMatter\GooglePubSub\Http\Middleware\VerifyPubSubWebhook;
 
 return [
     /*

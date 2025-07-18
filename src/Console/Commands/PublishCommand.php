@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Console\Commands;
+namespace SysMatter\GooglePubSub\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 class PublishCommand extends Command
 {

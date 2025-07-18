@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Facades;
+namespace SysMatter\GooglePubSub\Facades;
 
 use Google\Cloud\PubSub\PubSubClient;
 use Illuminate\Support\Facades\Facade;
-use Shavonn\GooglePubSub\Publisher\Publisher;
-use Shavonn\GooglePubSub\Subscriber\Subscriber;
+use SysMatter\GooglePubSub\Publisher\Publisher;
+use SysMatter\GooglePubSub\Subscriber\Subscriber;
 
 /**
  * @method static string publish(string $topic, mixed $data, array $attributes = [], array $options = [])
@@ -21,7 +21,7 @@ use Shavonn\GooglePubSub\Subscriber\Subscriber;
  * @method static array subscriptions()
  * @method static PubSubClient client()
  *
- * @see \Shavonn\GooglePubSub\PubSubManager
+ * @see \SysMatter\GooglePubSub\PubSubManager
  */
 class PubSub extends Facade
 {

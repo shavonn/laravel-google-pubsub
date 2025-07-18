@@ -7,7 +7,7 @@ Comprehensive configuration guide for Laravel Google Pub/Sub, covering all avail
 The main configuration is in `config/pubsub.php`. Publish it with:
 
 ```bash
-php artisan vendor:publish --provider="Shavonn\GooglePubSub\PubSubServiceProvider" --tag="config"
+php artisan vendor:publish --provider="SysMatter\GooglePubSub\PubSubServiceProvider" --tag="config"
 ```
 
 ## Basic Configuration
@@ -351,7 +351,7 @@ Configure webhook endpoints for push subscriptions:
 
     // Additional middleware
     'middleware' => [
-        \Shavonn\GooglePubSub\Http\Middleware\VerifyPubSubWebhook::class,
+        \SysMatter\GooglePubSub\Http\Middleware\VerifyPubSubWebhook::class,
         'throttle:1000,1', // Rate limiting
     ],
 ],

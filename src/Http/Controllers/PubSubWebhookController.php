@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Http\Controllers;
+namespace SysMatter\GooglePubSub\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
-use Shavonn\GooglePubSub\Events\PubSubEventSubscriber;
-use Shavonn\GooglePubSub\Formatters\JsonFormatter;
-use Shavonn\GooglePubSub\Messages\WebhookMessage;
+use SysMatter\GooglePubSub\Events\PubSubEventSubscriber;
+use SysMatter\GooglePubSub\Formatters\JsonFormatter;
+use SysMatter\GooglePubSub\Messages\WebhookMessage;
 
 class PubSubWebhookController extends Controller
 {

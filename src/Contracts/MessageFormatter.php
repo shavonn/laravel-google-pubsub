@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Contracts;
+namespace SysMatter\GooglePubSub\Contracts;
 
 interface MessageFormatter
 {

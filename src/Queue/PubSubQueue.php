@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Queue;
+namespace SysMatter\GooglePubSub\Queue;
 
 use DateInterval;
 use DateTimeInterface;
@@ -13,8 +13,8 @@ use Google\Cloud\PubSub\Topic;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Contracts\Queue\Queue as QueueContract;
 use Illuminate\Queue\Queue;
-use Shavonn\GooglePubSub\Exceptions\PubSubException;
-use Shavonn\GooglePubSub\Queue\Jobs\PubSubJob;
+use SysMatter\GooglePubSub\Exceptions\PubSubException;
+use SysMatter\GooglePubSub\Queue\Jobs\PubSubJob;
 
 class PubSubQueue extends Queue implements QueueContract
 {

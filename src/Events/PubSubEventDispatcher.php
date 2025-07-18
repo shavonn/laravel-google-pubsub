@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Events;
+namespace SysMatter\GooglePubSub\Events;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 use ReflectionClass;
-use Shavonn\GooglePubSub\Attributes\PublishTo;
-use Shavonn\GooglePubSub\PubSubManager;
-use Shavonn\GooglePubSub\Contracts\ShouldPublishToPubSub;
+use SysMatter\GooglePubSub\Attributes\PublishTo;
+use SysMatter\GooglePubSub\PubSubManager;
+use SysMatter\GooglePubSub\Contracts\ShouldPublishToPubSub;
 use Illuminate\Support\Facades\Log;
 
 class PubSubEventDispatcher

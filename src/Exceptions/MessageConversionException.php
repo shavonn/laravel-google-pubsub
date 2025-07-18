@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Exceptions;
+namespace SysMatter\GooglePubSub\Exceptions;
 
 use Exception;
 

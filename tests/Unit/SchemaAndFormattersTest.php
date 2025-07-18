@@ -1,10 +1,10 @@
 <?php
 
-use Shavonn\GooglePubSub\Schema\SchemaValidator;
-use Shavonn\GooglePubSub\Formatters\JsonFormatter;
-use Shavonn\GooglePubSub\Formatters\CloudEventsFormatter;
-use Shavonn\GooglePubSub\Exceptions\SchemaValidationException;
-use Shavonn\GooglePubSub\Exceptions\MessageFormatException;
+use SysMatter\GooglePubSub\Schema\SchemaValidator;
+use SysMatter\GooglePubSub\Formatters\JsonFormatter;
+use SysMatter\GooglePubSub\Formatters\CloudEventsFormatter;
+use SysMatter\GooglePubSub\Exceptions\SchemaValidationException;
+use SysMatter\GooglePubSub\Exceptions\MessageFormatException;
 
 describe('SchemaValidator', function () {
     beforeEach(function () {

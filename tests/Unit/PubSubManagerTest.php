@@ -3,12 +3,12 @@
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Topic;
 use Google\Cloud\PubSub\Subscription;
-use Shavonn\GooglePubSub\PubSubManager;
-use Shavonn\GooglePubSub\Publisher\Publisher;
-use Shavonn\GooglePubSub\Subscriber\Subscriber;
-use Shavonn\GooglePubSub\Subscriber\StreamingSubscriber;
-use Shavonn\GooglePubSub\Exceptions\PubSubException;
-use Shavonn\GooglePubSub\Facades\PubSub;
+use SysMatter\GooglePubSub\PubSubManager;
+use SysMatter\GooglePubSub\Publisher\Publisher;
+use SysMatter\GooglePubSub\Subscriber\Subscriber;
+use SysMatter\GooglePubSub\Subscriber\StreamingSubscriber;
+use SysMatter\GooglePubSub\Exceptions\PubSubException;
+use SysMatter\GooglePubSub\Facades\PubSub;
 
 describe('PubSubManager', function () {
     beforeEach(function () {

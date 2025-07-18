@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Queue;
+namespace SysMatter\GooglePubSub\Queue;
 
 use Exception;
 use Google\Cloud\PubSub\PubSubClient;
 use Illuminate\Contracts\Queue\Queue;
 use Illuminate\Queue\Connectors\ConnectorInterface;
 use Illuminate\Support\Arr;
-use Shavonn\GooglePubSub\Exceptions\PubSubException;
+use SysMatter\GooglePubSub\Exceptions\PubSubException;
 
 class PubSubConnector implements ConnectorInterface
 {

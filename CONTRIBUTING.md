@@ -31,7 +31,7 @@ Feature suggestions are welcome! Please create an issue and include:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/shavonn/laravel-google-pubsub.git
+   git clone https://github.com/sysmatter/laravel-google-pubsub.git
    cd laravel-google-pubsub
    ```
 
@@ -84,7 +84,7 @@ composer test
     - If you have write access: `git push origin your-branch-name`
     - If working from a fork: `git push origin your-branch-name` (this pushes to your fork)
 2. Create a pull request:
-    - Go to the [Laravel Google Pub/Sub repository](https://github.com/shavonn/laravel-google-pubsub)
+    - Go to the [Laravel Google Pub/Sub repository](https://github.com/sysmatter/laravel-google-pubsub)
     - Click "New pull request"
     - If working from a fork, click "compare across forks"
     - Select your branch and create the PR

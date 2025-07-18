@@ -1,7 +1,7 @@
 <?php
 
-use Shavonn\GooglePubSub\Exceptions\PubSubException;
-use Shavonn\GooglePubSub\Queue\PubSubConnector;
+use SysMatter\GooglePubSub\Exceptions\PubSubException;
+use SysMatter\GooglePubSub\Queue\PubSubConnector;
 
 it('throws exception when project id is missing', function () {
     $connector = new PubSubConnector();

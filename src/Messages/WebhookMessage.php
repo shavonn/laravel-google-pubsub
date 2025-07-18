@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Messages;
+namespace SysMatter\GooglePubSub\Messages;
 
 /**
  * Mock message class for webhook compatibility.

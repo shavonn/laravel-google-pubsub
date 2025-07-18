@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Shavonn\GooglePubSub\Publisher;
+namespace SysMatter\GooglePubSub\Publisher;
 
 use Exception;
 use Google\Cloud\PubSub\PubSubClient;
 use Google\Cloud\PubSub\Topic;
-use Shavonn\GooglePubSub\Contracts\MessageFormatter;
-use Shavonn\GooglePubSub\Exceptions\PublishException;
-use Shavonn\GooglePubSub\Formatters\JsonFormatter;
-use Shavonn\GooglePubSub\Schema\SchemaValidator;
+use SysMatter\GooglePubSub\Contracts\MessageFormatter;
+use SysMatter\GooglePubSub\Exceptions\PublishException;
+use SysMatter\GooglePubSub\Formatters\JsonFormatter;
+use SysMatter\GooglePubSub\Schema\SchemaValidator;
 use Illuminate\Support\Facades\Log;
 
 class Publisher

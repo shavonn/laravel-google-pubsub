@@ -2,6 +2,6 @@
 <?php
 // tests/Pest.php
 
-use Shavonn\GooglePubSub\Tests\TestCase;
+use SysMatter\GooglePubSub\Tests\TestCase;
 
 uses(TestCase::class)->in('Feature', 'Unit');
